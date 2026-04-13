@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rencanakan Perjalanan - Pagar Alam Tourism</title>
+    <style>
+        :root {
+            --hijau: #228B22; --kuning: #FFD700; --merah: #FF0000;
+            --putih: #ffffff; --hitam: #1a1a1a; --biru: #2980b9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #f4f7f6; color: var(--hitam); line-height: 1.6; }
+
+        /* Navbar */
+        nav {
+            background: var(--hijau); padding: 1rem 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
+        }
+        nav .logo { color: white; font-weight: 800; font-size: 1.4rem; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+
+        .container { padding: 60px 5%; max-width: 1100px; margin: auto; }
+        .section-title { text-align: center; color: var(--hijau); margin-bottom: 50px; }
+
+        /* 1. Visa Checker */
+        .visa-box {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
+            border-top: 5px solid var(--biru); text-align: center;
+        }
+        .visa-checker { margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        select, button { padding: 12px 20px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; }
+        .btn-check { background: var(--biru); color: white; border: none; cursor: pointer; font-weight: bold; }
+        #visa-result { margin-top: 20px; font-weight: bold; color: var(--biru); padding: 15px; border-radius: 10px; display: none; }
+
+        /* 2. Transportasi */
+        .grid-transport { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .trans-card { background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--hijau); }
+        .trans-card h3 { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+
+        /* 3. Mata Uang & Konektivitas */
+        .info-panel {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
+            background: var(--hitam); color: white; padding: 40px; border-radius: 25px;
+        }
+        .info-item h4 { color: var(--kuning); margin-bottom: 10px; font-size: 1.2rem; }
+        .info-item p { font-size: 0.9rem; color: #ccc; }
+
+        @media (max-width: 768px) {
+            .info-panel { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PAGAR<span style="color:var(--kuning)">ALAM</span></div>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="destinasi.html">DESTINASI</a></li>
+            <li><a href="aktivitas.html">THINGS TO DO</a></li>
+            <li><a href="budaya.html">BUDAYA & WARISAN</a></li>
+            <li><a href="kuliner.html">KULINER</a></li>
+            <li><a href="trip.html">TRIP</a></li> style="color:var(--kuning)">Trip</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="section-title">Persiapkan Perjalanan Anda</h2>
+
+        <div class="visa-box">
+            <h3>🌐 Visa Requirements Checker</h3>
+            <p>Cek apakah kewarganegaraan Anda memerlukan visa untuk mengunjungi Indonesia.</p>
+            <div class="visa-checker">
+                <select id="country-select">
+                    <option value="">Pilih Kewarganegaraan...</option>
+                    <option value="asean">Malaysia / Singapura / Thailand (ASEAN)</option>
+                    <option value="voa">Australia / USA / Inggris / Jerman</option>
+                    <option value="n-a">Negara Lainnya</option>
+                </select>
+                <button class="btn-check" onclick="checkVisa()">Cek Status</button>
+            </div>
+            <div id="visa-result"></div>
+        </div>
+
+        <div class="grid-transport">
+            <div class="trans-card">
+                <h3>✈️ Konektivitas Bandara</h3>
+                <p>Bandara Atung Bungsu (PXA) melayani penerbangan langsung dari Palembang. Perjalanan udara hanya memakan waktu 45 menit.</p>
+            </div>
+            <div class="trans-card">
+                <h3>🚗 Penyewaan Mobil</h3>
+                <p>Tersedia jasa sewa mobil lepas kunci atau dengan supir (lebih disarankan karena medan pegunungan yang berkelok).</p>
+            </div>
+            <div class="trans-card">
+                <h3>🚌 Transportasi Umum</h3>
+                <p>Bus Antar Kota (AKAP) tersedia dari Palembang atau Bengkulu. Di dalam kota, Anda bisa menggunakan angkutan lokal atau ojek.</p>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <div class="info-item">
+                <h4>💵 Mata Uang (Currency)</h4>
+                <p>Mata uang resmi adalah Rupiah (IDR). Disarankan membawa uang tunai secukupnya karena mesin ATM hanya tersedia di pusat kota Pagar Alam.</p>
+            </div>
+            <div class="info-item">
+                <h4>📱 Kartu SIM Lokal</h4>
+                <p>Kartu SIM dapat dibeli di konter resmi di pusat kota. Provider dengan sinyal terkuat di area gunung adalah Telkomsel.</p>
+            </div>
+            <div class="info-item">
+                <h4>📶 Ketersediaan Wi-Fi</h4>
+                <p>Wi-Fi tersedia gratis di sebagian besar hotel, villa, dan cafe kekinian di lereng Gunung Dempo.</p>
+            </div>
+            <div class="info-item">
+                <h4>🔌 Power Plug</h4>
+                <p>Indonesia menggunakan colokan tipe C & F (dua lubang bulat) dengan tegangan standar 220V.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer style="background: #111; color: white; text-align: center; padding: 40px; margin-top: 60px;">
+        <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
+    </footer>
+
+    <script>
+        function checkVisa() {
+            const country = document.getElementById('country-select').value;
+            const result = document.getElementById('visa-result');
+            result.style.display = 'block';
+
+            if (country === 'asean') {
+                result.innerHTML = "✅ Bebas Visa: Anda tidak memerlukan visa untuk kunjungan wisata hingga 30 hari.";
+                result.style.color = "green";
+            } else if (country === 'voa') {
+                result.innerHTML = "🛂 Visa on Arrival (VoA): Anda bisa membeli visa saat tiba di bandara internasional seharga Rp 500.000.";
+                result.style.color = "orange";
+            } else if (country === '') {
+                result.innerHTML = "Silakan pilih negara terlebih dahulu.";
+                result.style.color = "red";
+            } else {
+                result.innerHTML = "ℹ️ Diperlukan Visa: Silakan hubungi kedutaan besar Indonesia terdekat untuk pengajuan e-Visa.";
+                result.style.color = "var(--biru)";
+            }
+        }
+    </script>
+</body>
+</html>
