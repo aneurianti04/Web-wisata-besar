@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budaya & Warisan - Pagar Alam Tourism</title>
+    <style>
+        :root {
+            --hijau: #228B22; --kuning: #FFD700; --merah: #FF0000;
+            --putih: #ffffff; --hitam: #1a1a1a; --cokelat: #5d4037;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fdfaf5; color: var(--hitam); line-height: 1.8; }
+
+        /* Navbar */
+        nav {
+            background: var(--hijau); padding: 1rem 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
+        }
+        nav a { color: white; text-decoration: none; font-weight: 600; margin-left: 20px; }
+
+        /* Section Styling */
+        .container { padding: 60px 8%; max-width: 1200px; margin: auto; }
+        .section-title { text-align: center; color: var(--cokelat); margin-bottom: 40px; font-size: 2.5rem; position: relative; }
+        .section-title::after { content: ''; display: block; width: 80px; height: 4px; background: var(--kuning); margin: 10px auto; }
+
+        /* 1. Sejarah Singkat (Storytelling Layout) */
+        .history-section { display: flex; align-items: center; gap: 40px; margin-bottom: 80px; }
+        .history-text { flex: 1; }
+        .history-img { flex: 1; border-radius: 20px; box-shadow: 20px 20px 0 var(--hijau); width: 100%; }
+
+        /* 2. UNESCO World Heritage */
+        .unesco-badge {
+            background: #e3f2fd; border-left: 10px solid #1976d2; padding: 30px;
+            border-radius: 15px; margin-bottom: 80px; display: flex; align-items: center; gap: 20px;
+        }
+        .unesco-icon { width: 80px; }
+
+        /* 3. Etika Lokal & Rumah Adat Basemah */
+        .etika-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .etika-card {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 5px solid var(--merah);
+        }
+        .etika-card h3 { color: var(--hijau); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .rumah-adat-box {
+            background: var(--cokelat); color: white; padding: 40px; border-radius: 25px;
+            margin-top: 50px; display: flex; flex-direction: column; align-items: center; text-align: center;
+        }
+        .rumah-img { width: 100%; max-width: 600px; border-radius: 15px; margin-bottom: 20px; border: 4px solid var(--kuning); }
+
+        @media (max-width: 768px) {
+            .history-section { flex-direction: column; }
+            .unesco-badge { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div style="color:white; font-weight:800; font-size:1.4rem;">PAGAR<span style="color:var(--kuning)">ALAM</span></div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="destinasi.html">Destinasi</a>
+            <a href="aktivitas.html">THINGS TO DO</a>
+            <a href="budaya.html">Budaya</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <h2 class="section-title">Asal Usul Jagat Besemah</h2>
+        <div class="history-section">
+            <div class="history-text">
+                <p>Masyarakat Pagar Alam berakar dari peradaban <strong>Besemah</strong> yang agung. Menurut hikayat, nenek moyang Besemah berasal dari keturunan Atung Bungsu, salah satu dari tujuh bersaudara yang turun dari langit atau tanah suci.</p>
+                <br>
+                <p>Mereka membangun pemukiman di kaki Gunung Dempo, menciptakan sistem tatanan sosial yang menjunjung tinggi kehormatan dan hubungan harmonis dengan alam. Julukan "Pagar Alam" sendiri bermakna kota yang dipagari oleh pegunungan, mencerminkan perlindungan alami yang diberikan sang pencipta bagi bangsa ini.</p>
+            </div>
+            <img class="history-img" src="https://images.unsplash.com/photo-1596422846543-75c6fc18a5ce?auto=format&fit=crop&w=800&q=80" alt="Situs Sejarah">
+        </div>
+
+        <div class="unesco-badge">
+            <img class="unesco-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/UNESCO_logo.svg/1200px-UNESCO_logo.svg.png" alt="UNESCO">
+            <div>
+                <h3>Status Warisan Dunia (UNESCO)</h3>
+                <p>Kawasan Megalithikum Pagar Alam telah tercatat sebagai salah satu konsentrasi situs megalitikum terbaik di dunia. UNESCO mengakui keberadaan artefak berupa dolmen, menhir, dan arca manusia yang mencerminkan kecerdasan luar biasa bangsa prasejarah di Sumatera Selatan.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Etika & Tata Krama</h2>
+        <div class="etika-grid">
+            <div class="etika-card">
+                <h3>👕 Panduan Berpakaian</h3>
+                <p>Saat berkunjung ke situs suci atau rumah adat, gunakan pakaian yang sopan (menutup bahu dan lutut). Melepas alas kaki adalah kewajiban sebelum masuk ke dalam rumah adat.</p>
+            </div>
+            <div class="etika-card">
+                <h3>🤝 Cara Menyapa</h3>
+                <p>Gunakan sapaan yang ramah dengan sedikit menundukkan kepala. Senyum adalah kunci keramahan di Pagar Alam. Mintalah izin (tabik) sebelum mengambil foto warga atau bangunan pribadi.</p>
+            </div>
+            <div class="etika-card">
+                <h3>🚫 Aturan Dasar</h3>
+                <p>Dilarang keras menyentuh artefak megalitikum atau memanjat batu situs. Jaga ketenangan di area sakral dan jangan membuang sampah sembarangan di lingkungan adat.</p>
+            </div>
+        </div>
+
+        <div class="rumah-adat-box">
+            <h2>Ghumah Baghi (Rumah Adat Basemah)</h2>
+            <br>
+            <img class="rumah-img" src="https://via.placeholder.com/800x400/5d4037/ffffff?text=Foto+Ghumah+Baghi+Basemah" alt="Rumah Adat Basemah">
+            <p><strong>Ghumah Baghi</strong> adalah mahakarya arsitektur tanpa paku. Terbuat dari kayu pilihan dengan ukiran motif bunga dan tanaman (Matahari/Bunge Lade) yang bermakna kemakmuran. Atapnya yang berbentuk melengkung melambangkan tanduk kerbau sebagai simbol kekuatan dan perlindungan bagi penghuninya.</p>
+        </div>
+
+    </div>
+
+    <footer style="background: #111; color: white; text-align: center; padding: 40px; margin-top: 60px;">
+        <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
+    </footer>
+
+</body>
+</html>
