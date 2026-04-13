@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirasi Itinerari - Pagar Alam Tourism</title>
+    <style>
+        :root {
+            --hijau: #228B22; --kuning: #FFD700; --putih: #ffffff; 
+            --hitam: #1a1a1a; --abu: #f4f4f4; --emas: #d4af37;
+        }
+
+        /* BASE & LAYOUT */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        html, body { height: 100%; display: flex; flex-direction: column; background-color: var(--abu); }
+
+        /* HEADER */
+        nav {
+            background: var(--hijau); padding: 1.2rem 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--kuning);
+        }
+        nav .logo { color: white; font-weight: 800; font-size: 1.4rem; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+
+        .container { flex: 1; padding: 60px 5%; max-width: 1200px; margin: auto; }
+        .section-title { text-align: center; margin-bottom: 50px; color: var(--hijau); }
+
+        /* TAB NAVIGATION FOR ITINERARIES */
+        .itinerary-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 15px 30px; border: none; background: white; color: var(--hijau);
+            border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .tab-btn.active { background: var(--hijau); color: white; }
+
+        /* ITINERARY CONTENT */
+        .itinerary-content { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); display: none; }
+        .itinerary-content.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* TIMELINE STYLE */
+        .timeline { border-left: 4px solid var(--kuning); margin-left: 20px; padding-left: 30px; position: relative; }
+        .day-box { margin-bottom: 30px; position: relative; }
+        .day-box::before {
+            content: ''; width: 20px; height: 20px; background: var(--hijau);
+            border: 4px solid var(--kuning); border-radius: 50%;
+            position: absolute; left: -45px; top: 5px;
+        }
+        .day-box h4 { color: var(--hijau); font-size: 1.2rem; margin-bottom: 5px; }
+        .day-box p { color: #555; font-size: 0.95rem; }
+
+        /* FOOTER */
+        footer { background: #111; color: white; text-align: center; padding: 40px 0; margin-top: auto; border-top: 4px solid var(--hijau); }
+
+        @media (max-width: 768px) {
+            .itinerary-tabs { flex-direction: column; }
+            .timeline { margin-left: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PAGAR<span style="color:var(--kuning)">ALAM</span></div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinasi.html">Destinasi</a></li>
+            <li><a href="aktivitas.html">Aktivitas</a></li>
+            <li><a href="budaya.html">Budaya</a></li>
+            <li><a href="kuliner.html">Kuliner</a></li>
+            <li><a href="itinerary.html">ITINERARY</a></li>
+ style="color:var(--kuning)">Itinerary</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="section-title">Inspirasi Perjalanan</h2>
+
+        <div class="itinerary-tabs">
+            <button class="tab-btn active" onclick="showItinerary('first-timer', this)">The First Timer (7 Hari)</button>
+            <button class="tab-btn" onclick="showItinerary('off-path', this)">Off the Beaten Path (14 Hari)</button>
+            <button class="tab-btn" onclick="showItinerary('budget-luxury', this)">Budget vs Luxury</button>
+        </div>
+
+        <div id="first-timer" class="itinerary-content active">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200" alt="Landscape" style="width:100%; height:300px; object-fit:cover; border-radius:15px; margin-bottom:30px;">
+            <h3>Rute Ikonik: Kunjungan Pertama Kali</h3>
+            <p style="margin-bottom:20px;">Rute 7 hari yang mencakup semua destinasi utama Pagar Alam.</p>
+            <div class="timeline">
+                <div class="day-box">
+                    <h4>Hari 1: Kedatangan & Kota</h4>
+                    <p>Check-in Villa, makan siang Pindang Patin, dan jalan santai di Pusat Kota.</p>
+                </div>
+                <div class="day-box">
+                    <h4>Hari 2-3: Eksplorasi Kebun Teh</h4>
+                    <p>Tea Walk di lereng Gunung Dempo, mengunjungi Tangga Seribu, dan Sunset di Dempo Park.</p>
+                </div>
+                <div class="day-box">
+                    <h4>Hari 4: Sejarah Megalitikum</h4>
+                    <p>Tur situs purbakala Tegur Wangi dan Arca Manusia di area Besemah.</p>
+                </div>
+                <div class="day-box">
+                    <h4>Hari 5-6: Air Terjun & Danau</h4>
+                    <p>Kunjungan ke Cughup Mangkok, Cughup Embun, dan piknik di Tebat Gheban.</p>
+                </div>
+                <div class="day-box">
+                    <h4>Hari 7: Belanja & Kepulangan</h4>
+                    <p>Membeli Kopi Robusta dan Lemang, lalu menuju Bandara Atung Bungsu.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="off-path" class="itinerary-content">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200" alt="Adventure" style="width:100%; height:300px; object-fit:cover; border-radius:15px; margin-bottom:30px;">
+            <h3>Penjelajahan Mendalam: 14 Hari</h3>
+            <p style="margin-bottom:20px;">Untuk jiwa petualang yang ingin merasakan sisi liar Pagar Alam.</p>
+            <div class="timeline">
+                <div class="day-box">
+                    <h4>Minggu 1: Pendakian & Alam Liar</h4>
+                    <p>Pendakian Puncak Dempo (menginap), Rafting Sungai Lematang, dan eksplorasi hutan Rimba Candi.</p>
+                </div>
+                <div class="day-box">
+                    <h4>Minggu 2: Budaya & Desa Adat</h4>
+                    <p>Live-in di Rumah Adat Basemah, belajar menanam kopi dengan petani lokal, dan mengunjungi air terjun tersembunyi (Cughup Maung).</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="budget-luxury" class="itinerary-content">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:30px;">
+                <div style="background:#e8f5e9; padding:25px; border-radius:15px;">
+                    <h3 style="color:#2e7d32;">💰 Opsi Budget</h3>
+                    <ul style="margin-top:15px; padding-left:20px;">
+                        <li><strong>Penginapan:</strong> Homestay lokal / Guest House (Rp 150rb/malam).</li>
+                        <li><strong>Makan:</strong> Warung Kaki Lima & Pasar Tradisional.</li>
+                        <li><strong>Transportasi:</strong> Sewa motor atau angkutan lokal.</li>
+                    </ul>
+                </div>
+                <div style="background:#fff9c4; padding:25px; border-radius:15px;">
+                    <h3 style="color:#f57f17;">💎 Opsi Luxury</h3>
+                    <ul style="margin-top:15px; padding-left:20px;">
+                        <li><strong>Penginapan:</strong> Resort Eksklusif / Villa Mewah View Gunung (Rp 1.5jt+/malam).</li>
+                        <li><strong>Makan:</strong> Restoran Hotel & Private Dinner.</li>
+                        <li><strong>Transportasi:</strong> Mobil SUV pribadi dengan supir & pemandu khusus.</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top:30px; text-align:center; font-style:italic;">Apapun pilihan Anda, keramahan Pagar Alam tetap sama hangatnya.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
+    </footer>
+
+    <script>
+        function showItinerary(id, btn) {
+            // Sembunyikan semua konten
+            document.querySelectorAll('.itinerary-content').forEach(content => content.classList.remove('active'));
+            // Hilangkan status aktif pada semua tombol
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            // Tampilkan yang dipilih
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
