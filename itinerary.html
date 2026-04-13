@@ -3,221 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Itinerari Terperinci - Pagar Alam Tourism</title>
+    <title>Itinerary Lengkap - Pagar Alam Tourism</title>
     <style>
+        /* --- KUMPULAN CSS (INTERNAL) --- */
         :root {
-            --hijau: #228B22; --kuning: #FFD700; --putih: #ffffff; 
-            --hitam: #1a1a1a; --abu-bg: #f5f7fa;
+            --hijau: #228B22; 
+            --kuning: #FFD700; 
+            --merah: #FF4747;
+            --putih: #ffffff; 
+            --hitam: #1a1a1a; 
+            --abu-bg: #f8f9fa;
         }
 
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        /* Memastikan Footer di bawah */
         html, body { height: 100%; display: flex; flex-direction: column; background: var(--abu-bg); color: var(--hitam); }
 
-        /* HEADER */
+        /* NAVBAR / HEADER */
         nav {
-            background: var(--hijau); padding: 1.2rem 5%; display: flex;
-            justify-content: space-between; align-items: center;
-            border-bottom: 4px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
+            background: var(--hijau); 
+            padding: 1.2rem 5%; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 4px solid var(--kuning); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
         }
-        nav .logo { color: white; font-weight: 800; font-size: 1.4rem; }
+        nav .logo { color: white; font-weight: 800; font-size: 1.4rem; letter-spacing: 1px; }
+        nav .logo span { color: var(--kuning); }
         nav ul { display: flex; list-style: none; }
         nav ul li { margin-left: 20px; }
-        nav ul li a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        nav ul li a:hover { color: var(--kuning); }
 
-        .main-wrapper { flex: 1; padding: 60px 5%; max-width: 1200px; margin: auto; width: 100%; }
+        /* KONTEN UTAMA */
+        .container { flex: 1; padding: 60px 5%; max-width: 1200px; margin: auto; width: 100%; }
 
-        /* EFEK STABILO */
-        .hl-yellow { background: linear-gradient(transparent 50%, rgba(255, 241, 118, 0.8) 50%); padding: 0 4px; border-radius: 4px; }
-        .hl-green { background: linear-gradient(transparent 50%, rgba(165, 214, 167, 0.8) 50%); padding: 0 4px; border-radius: 4px; }
-        .hl-red { background: linear-gradient(transparent 50%, rgba(255, 138, 128, 0.8) 50%); padding: 0 4px; border-radius: 4px; }
+        /* EFEK STABILO (HIGHLIGHT) */
+        .hl-yellow { background: linear-gradient(transparent 50%, rgba(255, 241, 118, 0.9) 50%); padding: 0 4px; border-radius: 4px; font-weight: 600; }
+        .hl-green { background: linear-gradient(transparent 50%, rgba(165, 214, 167, 0.9) 50%); padding: 0 4px; border-radius: 4px; font-weight: 600; }
+        .hl-red { background: linear-gradient(transparent 50%, rgba(255, 138, 128, 0.9) 50%); padding: 0 4px; border-radius: 4px; font-weight: 600; }
 
-        /* TAB CARDS WITH IMAGES */
-        .tab-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        /* TOMBOL TAB DENGAN GAMBAR */
+        .tab-wrapper { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 50px; 
+        }
         .tab-card {
             background: white; border-radius: 20px; overflow: hidden; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); transition: all 0.4s ease;
-            position: relative; border: 4px solid transparent;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.4s ease;
+            position: relative; border: 4px solid transparent; text-align: center;
         }
-        .tab-card img { width: 100%; height: 160px; object-fit: cover; transition: 0.4s; filter: grayscale(40%); }
-        .tab-card .tab-overlay {
-            position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6);
-            color: white; padding: 15px; text-align: center; font-weight: bold;
+        .tab-card img { width: 100%; height: 150px; object-fit: cover; filter: brightness(60%); transition: 0.4s; }
+        .tab-card span {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: white; font-weight: 800; font-size: 1rem; width: 90%; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
         }
-        .tab-card:hover { transform: translateY(-10px); }
-        .tab-card.active { border-color: var(--kuning); }
-        .tab-card.active img { filter: grayscale(0%); }
-        .tab-card.active .tab-overlay { background: var(--hijau); }
+        .tab-card:hover { transform: translateY(-5px); }
+        .tab-card.active { border-color: var(--kuning); transform: scale(1.05); }
+        .tab-card.active img { filter: brightness(100%); }
+        .tab-card.active span { background: rgba(34, 139, 34, 0.8); padding: 5px 10px; border-radius: 5px; }
 
-        /* CONTENT PANELS */
-        .itinerary-panel { display: none; background: white; border-radius: 30px; padding: 50px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
-        .itinerary-panel.active { display: block; animation: fadeInUp 0.6s ease; }
+        /* PANEL KONTEN */
+        .itinerary-panel { display: none; background: white; border-radius: 30px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+        .itinerary-panel.active { display: block; animation: fadeInUp 0.5s ease; }
+
+        /* TIMELINE DAY-BY-DAY */
+        .timeline { border-left: 4px solid var(--hijau); margin-left: 20px; padding-left: 30px; }
+        .day-box { margin-bottom: 40px; position: relative; }
+        .day-box::before {
+            content: ''; width: 22px; height: 22px; background: var(--kuning);
+            border: 4px solid var(--hijau); border-radius: 50%;
+            position: absolute; left: -45px; top: 5px;
+        }
+        .day-box h3 { color: var(--hijau); margin-bottom: 10px; font-size: 1.4rem; }
+        .day-box p { line-height: 1.8; color: #444; text-align: justify; }
+
+        /* BUDGET VS LUXURY LAYOUT */
+        .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; }
+        .price-card { padding: 40px; border-radius: 25px; border: 2px solid #eee; transition: 0.3s; }
+        .price-card:hover { box-shadow: 0 15px 30px rgba(0,0,0,0.1); transform: translateY(-5px); }
+        .price-card.budget { background: #f1f8e9; border-top: 10px solid #4caf50; }
+        .price-card.luxury { background: #fffde7; border-top: 10px solid #fbc02d; }
+        .price-card h2 { margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .price-card ul { list-style: none; }
+        .price-card ul li { margin-bottom: 15px; padding-left: 25px; position: relative; }
+        .price-card ul li::before { content: '✔️'; position: absolute; left: 0; color: var(--hijau); }
+
+        /* TABLE */
+        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 40px; background: white; border-radius: 15px; overflow: hidden; }
+        .comparison-table th { background: var(--hijau); color: white; padding: 15px; text-align: left; }
+        .comparison-table td { padding: 15px; border: 1px solid #eee; font-size: 0.9rem; }
+
+        /* FOOTER */
+        footer { background: #111; color: white; text-align: center; padding: 50px 0; margin-top: auto; border-top: 5px solid var(--hijau); }
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* DETAIL DAY-BY-DAY */
-        .day-section { margin-bottom: 45px; padding-bottom: 30px; border-bottom: 1px dashed #ddd; }
-        .day-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .day-number { background: var(--hijau); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
-        .day-header h3 { color: var(--hijau); font-size: 1.4rem; }
-        .day-body p { line-height: 1.8; color: #444; margin-bottom: 15px; text-align: justify; }
-        .tips-box { background: #fdf2e9; border-left: 5px solid #e67e22; padding: 15px; font-size: 0.9rem; border-radius: 0 10px 10px 0; }
-
-        /* BUDGET VS LUXURY TABLE */
-        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .comparison-table th { background: var(--hijau); color: white; padding: 15px; text-align: left; }
-        .comparison-table td { padding: 15px; border: 1px solid #eee; }
-
-        footer { background: #111; color: white; text-align: center; padding: 50px 0; margin-top: auto; }
-
-        @media (max-width: 768px) { .itinerary-panel { padding: 25px; } .day-header { flex-direction: column; align-items: flex-start; } }
+        @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } .container { padding: 30px 5%; } }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">PAGAR<span style="color:var(--kuning)">ALAM</span></div>
+        <div class="logo">PAGAR<span>ALAM</span></div>
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="destinasi.html">Destinasi</a></li>
             <li><a href="aktivitas.html">Aktivitas</a></li>
             <li><a href="budaya.html">Budaya</a></li>
-            <li><a href="kuliner.html">Kuliner</a></li>
-            <li><a href="itinerary.html">Itinerary</a></li>
+            <li><a href="itinerary.html" style="color:var(--kuning)">Itinerary</a></li>
         </ul>
     </nav>
 
-    <div class="main-wrapper">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h1 style="font-size: 2.5rem; color: var(--hijau);">Rancang Perjalanan Anda</h1>
-            <p>Pilih paket rencana perjalanan yang paling sesuai dengan durasi dan budget kunjungan Anda.</p>
+    <div class="container">
+        <h1 style="text-align: center; margin-bottom: 10px; color: var(--hijau);">Inspirasi Perjalanan</h1>
+        <p style="text-align: center; margin-bottom: 40px; color: #666;">Pilih rencana terbaik untuk petualangan Anda di Bumi Besemah.</p>
+
+        <div class="tab-wrapper">
+            <div class="tab-card active" onclick="openTab('first', this)">
+                <img src="https://images.unsplash.com/photo-1596422846543-75c6fc18a5ce?q=80&w=500" alt="7 Hari">
+                <span>THE FIRST TIMER (7 HARI)</span>
+            </div>
+            <div class="tab-card" onclick="openTab('offpath', this)">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=500" alt="14 Hari">
+                <span>OFF THE BEATEN PATH (14 HARI)</span>
+            </div>
+            <div class="tab-card" onclick="openTab('compare', this)">
+                <img src="https://images.unsplash.com/photo-1454165833767-027eeef1596e?q=80&w=500" alt="Budget">
+                <span>BUDGET VS LUXURY</span>
+            </div>
         </div>
 
-        <div class="tab-container">
-            <div class="tab-card active" onclick="openPanel('first-timer', this)">
-                <img src="https://images.unsplash.com/photo-1596422846543-75c6fc18a5ce?auto=format&fit=crop&w=400&q=80" alt="7 Days">
-                <div class="tab-overlay">THE FIRST TIMER (7 HARI)</div>
-            </div>
-            <div class="tab-card" onclick="openPanel('long-trip', this)">
-                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80" alt="14 Days">
-                <div class="tab-overlay">OFF THE BEATEN PATH (14 HARI)</div>
-            </div>
-            <div class="tab-card" onclick="openPanel('finance', this)">
-                <img src="https://images.unsplash.com/photo-1454165833767-027eeef1596e?auto=format&fit=crop&w=400&q=80" alt="Budget">
-                <div class="tab-overlay">BUDGET VS LUXURY</div>
+        <div id="first" class="itinerary-panel active">
+            <h2 style="margin-bottom: 30px;">Rute Kunjungan <span class="hl-yellow">Pertama Kali</span> (7 Hari)</h2>
+            <div class="timeline">
+                <div class="day-box">
+                    <h3>Hari 1-2: Napas Gunung Dempo</h3>
+                    <p>Tiba di Pagar Alam dan langsung menuju <span class="hl-green">Kebun Teh Gunung Dempo</span>. Nikmati jalan santai di antara pepohonan teh (Tea Walk) dan ambil foto estetik di <span class="hl-yellow">Tangga Seribu</span>. Udara pagi yang segar akan membersihkan paru-paru Anda dari polusi kota.</p>
+                </div>
+                <div class="day-box">
+                    <h3>Hari 3-5: Keajaiban Air Terjun & Danau</h3>
+                    <p>Eksplorasi air terjun kembar <span class="hl-green">Cughup Embun & Cughup Mangkok</span>. Setelah itu, sore hari Anda bisa bersantai di tepi <span class="hl-yellow">Danau Tebat Gheban</span> sembari menikmati jagung bakar dan melihat pemandangan Gunung Dempo yang memantul di permukaan air danau.</p>
+                </div>
+                <div class="day-box">
+                    <h3>Hari 6-7: Wisata Sejarah & Kuliner</h3>
+                    <p>Mengunjungi <span class="hl-green">Situs Megalitikum Tegur Wangi</span> untuk melihat peninggalan zaman prasejarah. Jangan lupa membeli <span class="hl-red">Kopi Robusta Pagar Alam</span> yang terkenal sangat harum dan pekat sebagai oleh-oleh sebelum Anda pulang.</p>
+                </div>
             </div>
         </div>
 
-        <div id="first-timer" class="itinerary-panel active">
-            <h2 style="margin-bottom: 30px;">Rute Klasik <span class="hl-yellow">Pagar Alam Sepekan</span></h2>
+        <div id="offpath" class="itinerary-panel">
+            <h2 style="margin-bottom: 30px;">Penjelajahan <span class="hl-green">14 Hari Mendalam</span></h2>
+            <div class="timeline">
+                <div class="day-box">
+                    <h3>Minggu 1: Penakluk Rimba & Puncak</h3>
+                    <p>Minggu pertama difokuskan untuk fisik dan adrenalin. Lakukan <span class="hl-red">Pendakian Puncak Gunung Dempo</span> (3.159 MDPL). Berkemah di pelataran dan nikmati pemandangan kawah belerang yang memukau. Setelah turun, segarkan diri dengan <span class="hl-yellow">Rafting di Sungai Lematang</span> yang arusnya sangat menantang.</p>
+                </div>
+                <div class="day-box">
+                    <h3>Minggu 2: Hidup Bersama Tradisi</h3>
+                    <p>Masuklah ke desa adat dan menginap di <span class="hl-green">Rumah Adat Basemah (Ghumah Baghi)</span>. Pelajari cara warga lokal memproses kopi secara tradisional, mulai dari memetik buah merah hingga menyangrai di atas tungku kayu. Ini adalah pengalaman spiritual dan budaya yang tak terlupakan.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="compare" class="itinerary-panel">
+            <h2 style="text-align: center; margin-bottom: 30px;">Detail Perbandingan <span class="hl-yellow">Biaya & Fasilitas</span></h2>
             
-            <div class="day-section">
-                <div class="day-header">
-                    <div class="day-number">01</div>
-                    <h3>Gerbang Tanah Besemah</h3>
+            <div class="compare-grid">
+                <div class="price-card budget">
+                    <h2>🎒 Mode Backpacker</h2>
+                    <p style="margin-bottom: 15px; color: #555;">Didesain untuk petualang mandiri yang ingin menghemat biaya namun mendapatkan pengalaman asli.</p>
+                    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=400" style="width:100%; height:150px; object-fit:cover; border-radius:10px; margin-bottom:15px;">
+                    <ul>
+                        <li><strong>Akomodasi:</strong> Menginap di <span class="hl-green">Homestay warga</span> atau Guest House kelas melati (Rp 100k - 200k/malam).</li>
+                        <li><strong>Transportasi:</strong> <span class="hl-green">Sewa Motor Matic</span> harian. Hemat bensin dan bebas macet saat masuk ke jalan kecil kebun teh (Rp 75k/hari).</li>
+                        <li><strong>Konsumsi:</strong> Makan di warung nasi atau pasar tradisional (Rp 50k - 70k/hari).</li>
+                        <li><strong>Estimasi Total:</strong> <span class="hl-red">Rp 2 Juta - 3 Juta</span> per minggu.</li>
+                    </ul>
                 </div>
-                <div class="day-body">
-                    <p>Setelah mendarat di <span class="hl-green">Bandara Atung Bungsu</span>, Anda akan langsung disambut udara sejuk pegunungan. Hari pertama difokuskan untuk adaptasi. Setelah check-in di Villa, nikmati makan siang <span class="hl-yellow">Pindang Patin</span> di pusat kota. Sore harinya, kunjungilah Alun-alun Kota untuk melihat kehidupan lokal warga Pagar Alam yang ramah.</p>
-                    <div class="tips-box">💡 Tips: Pastikan membawa jaket karena suhu malam hari bisa turun drastis hingga 16°C.</div>
+
+                <div class="price-card luxury">
+                    <h2>💎 Mode Luxury</h2>
+                    <p style="margin-bottom: 15px; color: #555;">Kenyamanan tanpa batas dengan fasilitas kelas satu untuk liburan yang sangat berkesan.</p>
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400" style="width:100%; height:150px; object-fit:cover; border-radius:10px; margin-bottom:15px;">
+                    <ul>
+                        <li><strong>Akomodasi:</strong> <span class="hl-yellow">Resort / Villa Eksklusif</span> di lereng gunung dengan view balkon langsung ke Gunung Dempo (Rp 1.5jt - 3jt/malam).</li>
+                        <li><strong>Transportasi:</strong> Mobil SUV pribadi (<span class="hl-yellow">Pajero/Fortuner</span>) lengkap dengan supir handal yang merangkap pemandu (Rp 1jt/hari).</li>
+                        <li><strong>Konsumsi:</strong> Fine dining di restoran hotel atau Cafe premium dengan menu mancanegara (Rp 300k - 500k/hari).</li>
+                        <li><strong>Estimasi Total:</strong> <span class="hl-green">Rp 15 Juta - 25 Juta</span> per minggu.</li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="day-section">
-                <div class="day-header">
-                    <div class="day-number">02</div>
-                    <h3>Samudra Hijau di Kaki Dempo</h3>
-                </div>
-                <div class="day-body">
-                    <p>Mulailah pagi pukul 05:30 untuk mengejar <span class="hl-yellow">Sunrise di Kebun Teh</span>. Perjalanan berlanjut ke Tangga Seribu, tempat ikonik untuk berfoto. Siang harinya, Anda bisa mengunjungi pabrik pengolahan teh dan mencicipi teh hitam kualitas ekspor yang diproduksi langsung dari lereng Gunung Dempo.</p>
-                </div>
-            </div>
-
-            <div class="day-section">
-                <div class="day-header">
-                    <div class="day-number">03</div>
-                    <h3>Simfoni Air Terjun</h3>
-                </div>
-                <div class="day-body">
-                    <p>Pagar Alam memiliki ratusan air terjun. Hari ini Anda akan mengunjungi duo legendaris: <span class="hl-green">Cughup Embun</span> dan <span class="hl-green">Cughup Mangkok</span>. Lokasinya yang berdekatan memudahkan Anda berpindah tempat. Sore hari ditutup dengan santai di Danau Tebat Gheban sembari melihat nelayan tradisional dengan rakit bambu.</p>
-                </div>
-            </div>
-
-            <p style="text-align: center; font-style: italic;">...dan berlanjut hingga hari ke-7 dengan wisata sejarah dan belanja oleh-oleh...</p>
-        </div>
-
-        <div id="long-trip" class="itinerary-panel">
-            <h2 style="margin-bottom: 30px;">Ekspedisi <span class="hl-green">Total Eksplorasi</span> (14 Hari)</h2>
-            <div class="day-section">
-                <div class="day-header">
-                    <div class="day-number">W1</div>
-                    <h3>Minggu Pertama: Penakluk Puncak</h3>
-                </div>
-                <div class="day-body">
-                    <p>Minggu pertama didedikasikan untuk alam liar. Persiapkan fisik untuk <span class="hl-red">Pendakian Gunung Dempo</span> selama 3 hari 2 malam. Anda akan bermalam di "Pelataran" sebelum melakukan *summit attack* ke puncak tertinggi Sumatera Selatan. Sisa minggu dihabiskan untuk relaksasi otot di pemandian air panas alami.</p>
-                </div>
-            </div>
-            <div class="day-section">
-                <div class="day-header">
-                    <div class="day-number">W2</div>
-                    <h3>Minggu Kedua: Penjaga Tradisi</h3>
-                </div>
-                <div class="day-body">
-                    <p>Masuki kehidupan asli suku Besemah. Menginaplah di <span class="hl-yellow">Ghumah Baghi</span> (Rumah Adat). Belajarlah cara menanam, memanen, hingga menyangrai kopi secara tradisional. Anda juga akan menjelajahi situs megalitikum tersembunyi yang jarang dikunjungi turis biasa.</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="finance" class="itinerary-panel">
-            <h2 style="margin-bottom: 30px;">Perbandingan <span class="hl-yellow">Budget</span> vs <span class="hl-green">Luxury</span></h2>
-            <p style="margin-bottom: 25px;">Sesuaikan kenyamanan Anda dengan anggaran yang tersedia untuk pengalaman terbaik di Pagar Alam.</p>
-            
             <table class="comparison-table">
-                <tr>
-                    <th>Aspek Perjalanan</th>
-                    <th>Mode Budget (Hemat)</th>
-                    <th>Mode Luxury (Sultan)</th>
-                </tr>
-                <tr>
-                    <td><strong>Penginapan</strong></td>
-                    <td>Homestay / Guest House (Rp 150rb)</td>
-                    <td>Boutique Resort / Villa Mewah (Rp 1.5jt+)</td>
-                </tr>
-                <tr>
-                    <td><strong>Transportasi</strong></td>
-                    <td>Sewa Motor harian (Rp 75rb)</td>
-                    <td>Sewa SUV & Driver (Rp 800rb)</td>
-                </tr>
-                <tr>
-                    <td><strong>Konsumsi</strong></td>
-                    <td>Pasar Tradisional & Warung Nasi</td>
-                    <td>Restoran Hotel & Private Dining</td>
-                </tr>
-                <tr>
-                    <td><strong>Pengalaman</strong></td>
-                    <td>Eksplorasi mandiri & jalan kaki</td>
-                    <td>Tur eksklusif dengan pemandu pribadi</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Fasilitas</th>
+                        <th>Hemat (Budget)</th>
+                        <th>Premium (Luxury)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pemandu Wisata</strong></td>
+                        <td>Mandiri menggunakan Google Maps</td>
+                        <td>Pemandu Profesional & Fotografer</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dokumentasi</strong></td>
+                        <td>Kamera HP & Selfie</td>
+                        <td>Drone & Video Sinematik</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fleksibilitas</strong></td>
+                        <td>Sangat Bebas & Santai</td>
+                        <td>Terencana & Terorganisir</td>
+                    </tr>
+                </tbody>
             </table>
-            <p style="margin-top: 30px; font-weight: bold; text-align: center;">Estimasi Total: <span class="hl-red">Budget (Rp 3jt)</span> vs <span class="hl-green">Luxury (Rp 15jt+)</span> per orang.</p>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
-        <p style="font-size: 0.8rem; color: #555; margin-top: 10px;">Visit South Sumatra, Indonesia</p>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 15px;">Didesain khusus untuk portal informasi pariwisata Sumatera Selatan.</p>
     </footer>
 
     <script>
-        function openPanel(id, element) {
+        function openTab(id, element) {
             // Sembunyikan semua panel
-            document.querySelectorAll('.itinerary-panel').forEach(p => p.classList.remove('active'));
-            // Hilangkan status aktif di semua kartu tab
-            document.querySelectorAll('.tab-card').forEach(c => c.classList.remove('active'));
-            
-            // Tampilkan yang dipilih
+            const panels = document.querySelectorAll('.itinerary-panel');
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            // Nonaktifkan semua tombol tab
+            const tabs = document.querySelectorAll('.tab-card');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Aktifkan panel dan tombol yang diklik
             document.getElementById(id).classList.add('active');
             element.classList.add('active');
         }
     </script>
+
 </body>
 </html>
