@@ -3,56 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rencanakan Perjalanan - Pagar Alam Tourism</title>
+    <title>Plan Your Trip - Pagar Alam Tourism</title>
     <style>
         :root {
-            --hijau: #228B22; --kuning: #FFD700; --merah: #FF0000;
-            --putih: #ffffff; --hitam: #1a1a1a; --biru: #2980b9;
+            --hijau: #228B22; --kuning: #FFD700; --putih: #ffffff; --hitam: #1a1a1a;
         }
 
+        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: #f4f7f6; color: var(--hitam); line-height: 1.6; }
+        
+        /* Memastikan footer selalu di bawah */
+        html, body { height: 100%; display: flex; flex-direction: column; background-color: #f8f9fa; }
 
-        /* Navbar */
+        /* --- HEADER --- */
         nav {
-            background: var(--hijau); padding: 1rem 5%; display: flex;
+            background: var(--hijau); padding: 1.2rem 5%; display: flex;
             justify-content: space-between; align-items: center;
-            border-bottom: 4px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 4px solid var(--kuning);
         }
         nav .logo { color: white; font-weight: 800; font-size: 1.4rem; }
         nav ul { display: flex; list-style: none; }
         nav ul li { margin-left: 20px; }
-        nav ul li a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
 
-        .container { padding: 60px 5%; max-width: 1100px; margin: auto; }
-        .section-title { text-align: center; color: var(--hijau); margin-bottom: 50px; }
+        /* --- CONTENT WRAPPER --- */
+        .main-content { flex: 1; padding: 60px 5%; max-width: 1200px; margin: auto; }
+        .section-title { text-align: center; margin-bottom: 50px; color: var(--hijau); font-size: 2.2rem; }
 
-        /* 1. Visa Checker */
-        .visa-box {
-            background: white; padding: 40px; border-radius: 20px;
+        /* 1. VISA CHECKER AREA DENGAN GAMBAR */
+        .visa-hero {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+            background: white; padding: 30px; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 60px;
-            border-top: 5px solid var(--biru); text-align: center;
+            align-items: center;
         }
-        .visa-checker { margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        select, button { padding: 12px 20px; border-radius: 8px; border: 1px solid #ddd; font-size: 1rem; }
-        .btn-check { background: var(--biru); color: white; border: none; cursor: pointer; font-weight: bold; }
-        #visa-result { margin-top: 20px; font-weight: bold; color: var(--biru); padding: 15px; border-radius: 10px; display: none; }
-
-        /* 2. Transportasi */
-        .grid-transport { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 60px; }
-        .trans-card { background: white; padding: 30px; border-radius: 15px; border-left: 5px solid var(--hijau); }
-        .trans-card h3 { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-
-        /* 3. Mata Uang & Konektivitas */
-        .info-panel {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 25px;
-            background: var(--hitam); color: white; padding: 40px; border-radius: 25px;
+        .visa-hero img { 
+            width: 100%; 
+            height: 350px; 
+            border-radius: 15px; 
+            object-fit: cover; 
+            box-shadow: 10px 10px 0px rgba(34, 139, 34, 0.1);
         }
-        .info-item h4 { color: var(--kuning); margin-bottom: 10px; font-size: 1.2rem; }
-        .info-item p { font-size: 0.9rem; color: #ccc; }
+        .visa-ui { padding: 10px; }
+        .visa-ui h3 { color: var(--hijau); font-size: 1.8rem; margin-bottom: 15px; }
+        select, .btn-check { padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #ddd; font-size: 1rem; width: 100%; }
+        .btn-check { background: var(--hijau); color: white; cursor: pointer; border: none; font-weight: bold; transition: 0.3s; }
+        .btn-check:hover { background: #1a6b1a; }
+
+        /* 2. TRANSPORTATION GRID DENGAN GAMBAR */
+        .transport-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; height: 220px; object-fit: cover; }
+        .card-body { padding: 25px; }
+        .card-body h3 { color: var(--hijau); margin-bottom: 12px; font-size: 1.3rem; }
+        .card-body p { font-size: 0.9rem; color: #555; }
+
+        /* 3. CURRENCY & CONNECTIVITY (DARK SECTION) */
+        .tech-info {
+            background: var(--hitam); color: white; padding: 60px 40px; border-radius: 30px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px;
+        }
+        .tech-card { text-align: center; }
+        .tech-card .icon-img { width: 60px; height: 60px; margin-bottom: 20px; filter: invert(1); }
+        .tech-card h4 { color: var(--kuning); margin-bottom: 15px; font-size: 1.4rem; }
+        .tech-card p { font-size: 0.9rem; color: #bbb; line-height: 1.8; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #111; color: white; text-align: center;
+            padding: 40px 0; margin-top: auto; border-top: 4px solid var(--hijau);
+        }
 
         @media (max-width: 768px) {
-            .info-panel { grid-template-columns: 1fr; }
+            .visa-hero { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.7rem; }
         }
     </style>
 </head>
@@ -61,92 +86,90 @@
     <nav>
         <div class="logo">PAGAR<span style="color:var(--kuning)">ALAM</span></div>
         <ul>
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="destinasi.html">DESTINASI</a></li>
-            <li><a href="aktivitas.html">THINGS TO DO</a></li>
-            <li><a href="budaya.html">BUDAYA & WARISAN</a></li>
-            <li><a href="kuliner.html">KULINER</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinasi.html">Destinasi</a></li>
+            <li><a href="aktivitas.html">Aktivitas</a></li>
+            <li><a href="budaya.html">Budaya</a></li>
+            <li><a href="kuliner.html">Kuliner</a></li>
             <li><a href="trip.html">TRIP</a></li> style="color:var(--kuning)">Trip</a></li>
         </ul>
     </nav>
 
-    <div class="container">
-        <h2 class="section-title">Persiapkan Perjalanan Anda</h2>
+    <div class="main-content">
+        <h2 class="section-title">Informasi Penting Perjalanan</h2>
 
-        <div class="visa-box">
-            <h3>🌐 Visa Requirements Checker</h3>
-            <p>Cek apakah kewarganegaraan Anda memerlukan visa untuk mengunjungi Indonesia.</p>
-            <div class="visa-checker">
-                <select id="country-select">
-                    <option value="">Pilih Kewarganegaraan...</option>
-                    <option value="asean">Malaysia / Singapura / Thailand (ASEAN)</option>
-                    <option value="voa">Australia / USA / Inggris / Jerman</option>
-                    <option value="n-a">Negara Lainnya</option>
+        <div class="visa-hero">
+            <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=800" alt="Passport and Visa">
+            <div class="visa-ui">
+                <h3>Syarat Masuk (Visa)</h3>
+                <p>Pastikan dokumen perjalanan Anda siap. Gunakan pengecek otomatis kami di bawah ini untuk status visa Anda.</p>
+                <select id="country">
+                    <option value="">-- Pilih Kewarganegaraan --</option>
+                    <option value="free">ASEAN (Malaysia, Singapore, etc.)</option>
+                    <option value="voa">Australia, USA, Europe (Visa on Arrival)</option>
+                    <option value="required">Other Countries (E-Visa Required)</option>
                 </select>
-                <button class="btn-check" onclick="checkVisa()">Cek Status</button>
-            </div>
-            <div id="visa-result"></div>
-        </div>
-
-        <div class="grid-transport">
-            <div class="trans-card">
-                <h3>✈️ Konektivitas Bandara</h3>
-                <p>Bandara Atung Bungsu (PXA) melayani penerbangan langsung dari Palembang. Perjalanan udara hanya memakan waktu 45 menit.</p>
-            </div>
-            <div class="trans-card">
-                <h3>🚗 Penyewaan Mobil</h3>
-                <p>Tersedia jasa sewa mobil lepas kunci atau dengan supir (lebih disarankan karena medan pegunungan yang berkelok).</p>
-            </div>
-            <div class="trans-card">
-                <h3>🚌 Transportasi Umum</h3>
-                <p>Bus Antar Kota (AKAP) tersedia dari Palembang atau Bengkulu. Di dalam kota, Anda bisa menggunakan angkutan lokal atau ojek.</p>
+                <button class="btn-check" onclick="checkVisa()">CEK STATUS SEKARANG</button>
+                <p id="result" style="margin-top:20px; font-weight:bold; color:var(--hijau); min-height: 24px;"></p>
             </div>
         </div>
 
-        <div class="info-panel">
-            <div class="info-item">
-                <h4>💵 Mata Uang (Currency)</h4>
-                <p>Mata uang resmi adalah Rupiah (IDR). Disarankan membawa uang tunai secukupnya karena mesin ATM hanya tersedia di pusat kota Pagar Alam.</p>
+        <div class="transport-grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=600" alt="Airport Terminal">
+                <div class="card-body">
+                    <h3>Bandara Atung Bungsu</h3>
+                    <p>Terletak di Pagar Alam, melayani penerbangan domestik. Cara tercepat untuk sampai ke gerbang Gunung Dempo tanpa kelelahan di jalan.</p>
+                </div>
             </div>
-            <div class="info-item">
-                <h4>📱 Kartu SIM Lokal</h4>
-                <p>Kartu SIM dapat dibeli di konter resmi di pusat kota. Provider dengan sinyal terkuat di area gunung adalah Telkomsel.</p>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=600" alt="Rental Car">
+                <div class="card-body">
+                    <h3>Penyewaan Kendaraan</h3>
+                    <p>Tersedia mobil SUV dan motor trail. Sangat disarankan menyewa kendaraan dengan supir lokal yang hafal medan pegunungan.</p>
+                </div>
             </div>
-            <div class="info-item">
-                <h4>📶 Ketersediaan Wi-Fi</h4>
-                <p>Wi-Fi tersedia gratis di sebagian besar hotel, villa, dan cafe kekinian di lereng Gunung Dempo.</p>
-            </div>
-            <div class="info-item">
-                <h4>🔌 Power Plug</h4>
-                <p>Indonesia menggunakan colokan tipe C & F (dua lubang bulat) dengan tegangan standar 220V.</p>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=600" alt="Bus Transport">
+                <div class="card-body">
+                    <h3>Travel & Bus Antar Kota</h3>
+                    <p>Layanan travel 24 jam dari Palembang. Pilihan paling populer dengan harga terjangkau dan jadwal keberangkatan yang fleksibel.</p>
+                </div>
             </div>
         </div>
 
+        <div class="tech-info">
+            <div class="tech-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2344/2344155.png" class="icon-img" alt="Currency">
+                <h4>💵 Mata Uang</h4>
+                <p>Menggunakan Rupiah (IDR). Kami menyarankan penukaran uang di Bandara Palembang sebelum menuju Pagar Alam karena keterbatasan Money Changer.</p>
+            </div>
+            <div class="tech-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/900/900702.png" class="icon-img" alt="SIM Card">
+                <h4>📱 SIM & Internet</h4>
+                <p>Dapatkan kartu SIM lokal di gerai resmi. Sinyal Telkomsel adalah yang paling stabil hingga ke area pendakian Gunung Dempo.</p>
+            </div>
+            <div class="tech-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/3052/3052467.png" class="icon-img" alt="WiFi">
+                <h4>📶 WiFi Gratis</h4>
+                <p>Hampir semua Villa di lereng gunung menyediakan WiFi gratis. Namun, bawalah modem cadangan jika Anda berencana bekerja dari alam terbuka.</p>
+            </div>
+        </div>
     </div>
 
-    <footer style="background: #111; color: white; text-align: center; padding: 40px; margin-top: 60px;">
+    <footer>
         <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
+        <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Visit South Sumatra, Indonesia</p>
     </footer>
 
     <script>
         function checkVisa() {
-            const country = document.getElementById('country-select').value;
-            const result = document.getElementById('visa-result');
-            result.style.display = 'block';
-
-            if (country === 'asean') {
-                result.innerHTML = "✅ Bebas Visa: Anda tidak memerlukan visa untuk kunjungan wisata hingga 30 hari.";
-                result.style.color = "green";
-            } else if (country === 'voa') {
-                result.innerHTML = "🛂 Visa on Arrival (VoA): Anda bisa membeli visa saat tiba di bandara internasional seharga Rp 500.000.";
-                result.style.color = "orange";
-            } else if (country === '') {
-                result.innerHTML = "Silakan pilih negara terlebih dahulu.";
-                result.style.color = "red";
-            } else {
-                result.innerHTML = "ℹ️ Diperlukan Visa: Silakan hubungi kedutaan besar Indonesia terdekat untuk pengajuan e-Visa.";
-                result.style.color = "var(--biru)";
-            }
+            const val = document.getElementById('country').value;
+            const res = document.getElementById('result');
+            if(val === 'free') res.innerText = "✅ BEBAS VISA: Kunjungan wisata hingga 30 hari.";
+            else if(val === 'voa') res.innerText = "🛂 VISA ON ARRIVAL: Bayar di tempat saat tiba (IDR 500.000).";
+            else if(val === 'required') res.innerText = "⚠️ E-VISA: Anda harus mendaftar secara online sebelum berangkat.";
+            else res.innerText = "Silakan pilih kewarganegaraan terlebih dahulu.";
         }
     </script>
 </body>
