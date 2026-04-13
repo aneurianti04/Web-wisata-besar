@@ -3,60 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuliner Pagar Alam</title>
+    <title>Kuliner Pagar Alam - Food & Drink Guide</title>
     <style>
-        :root { --hijau: #228B22; --kuning: #FFD700; --merah: #FF0000; --putih: #fff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-        nav { background: var(--hijau); padding: 1rem 5%; display: flex; justify-content: space-between; border-bottom: 4px solid var(--kuning); }
-        nav a { color: white; text-decoration: none; margin-left: 15px; }
-        .container { padding: 40px 5%; }
-        .food-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .food-card { border: 1px solid #ddd; border-radius: 10px; overflow: hidden; text-align: center; background: white; transition: 0.3s; }
-        .food-card:hover { border-color: var(--merah); transform: scale(1.02); }
-        .food-card img { width: 100%; height: 180px; object-fit: cover; }
-        .food-card h3 { padding: 15px; background: var(--hijau); color: white; }
-        .food-info { padding: 15px; font-size: 0.9rem; color: #555; }
+        :root {
+            --hijau: #228B22; --kuning: #FFD700; --merah: #FF0000;
+            --putih: #ffffff; --hitam: #1a1a1a; --orange: #e67e22;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fffaf0; color: var(--hitam); }
+
+        /* Navbar */
+        nav {
+            background: var(--hijau); padding: 1rem 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
+        }
+        nav a { color: white; text-decoration: none; font-weight: 600; margin-left: 20px; }
+
+        .container { padding: 60px 5%; max-width: 1200px; margin: auto; }
+        .section-title { text-align: center; color: var(--orange); margin-bottom: 40px; font-size: 2.5rem; }
+
+        /* 1. Must-Eat Dishes (5 Makanan Khas) */
+        .food-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 80px; }
+        .food-card {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .food-card:hover { transform: scale(1.03); }
+        .food-img { width: 100%; height: 250px; object-fit: cover; }
+        .food-info { padding: 25px; }
+        .food-info h3 { color: var(--hijau); margin-bottom: 10px; border-bottom: 2px solid var(--kuning); display: inline-block; }
+        .bahan-utama { font-size: 0.85rem; background: #eee; padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px; }
+
+        /* 2. Direktori Restoran (Filter) */
+        .filter-section { background: white; padding: 40px; border-radius: 20px; margin-bottom: 80px; text-align: center; }
+        .filter-btns { margin: 20px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+        .btn-kuliner {
+            padding: 10px 20px; border: 2px solid var(--orange); background: none;
+            color: var(--orange); border-radius: 50px; cursor: pointer; font-weight: bold;
+        }
+        .btn-kuliner.active, .btn-kuliner:hover { background: var(--orange); color: white; }
+
+        /* 3. Pasar Tradisional */
+        .market-banner {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center; color: white;
+            padding: 60px; border-radius: 25px; text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .food-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
-<body style="background: #f9f9f9;">
+<body>
+
     <nav>
-        <div style="color: white; font-weight: bold;">PAGAR<span style="color: var(--kuning);">ALAM</span></div>
+        <div style="color:white; font-weight:800; font-size:1.4rem;">PAGAR<span style="color:var(--kuning)">ALAM</span></div>
         <div>
             <a href="index.html">Home</a>
             <a href="destinasi.html">Destinasi</a>
-            <a href="kuliner.html" style="color: var(--kuning);">Kuliner</a>
+            <a href="kuliner.html" style="color:var(--kuning)">Kuliner</a>
         </div>
     </nav>
 
     <div class="container">
-        <h1 style="text-align: center; color: var(--hijau); margin-bottom: 30px;">Cita Rasa Basemah</h1>
+        
+        <h2 class="section-title">Must-Eat Dishes</h2>
         <div class="food-grid">
+            
             <div class="food-card">
-                <img src="https://via.placeholder.com/300x200" alt="Kelicuk">
-                <h3>1. Kelicuk</h3>
-                <div class="food-info">Makanan khas dari ketan dan pisang yang dibungkus daun pisang.</div>
+                <img class="food-img" src="https://via.placeholder.com/400x300?text=Kelicuk" alt="Kelicuk">
+                <div class="food-info">
+                    <h3>1. Kelicuk</h3>
+                    <p>Kudapan manis tradisional khas Besemah yang dibungkus daun pisang berbentuk kerucut.</p>
+                    <span class="bahan-utama">Bahan Utama: Beras Ketan & Pisang Masak</span>
+                </div>
             </div>
+
             <div class="food-card">
-                <img src="https://via.placeholder.com/300x200" alt="Nasi Ibad Daun">
-                <h3>2. Nasi Ibad Daun</h3>
-                <div class="food-info">Nasi aromatik yang dimasak khusus dengan bungkus daun pilihan.</div>
+                <img class="food-img" src="https://via.placeholder.com/400x300?text=Nasi+Ibad" alt="Nasi Ibad Daun">
+                <div class="food-info">
+                    <h3>2. Nasi Ibad Daun</h3>
+                    <p>Nasi yang dimasak khusus dengan bungkus daun sehingga memiliki aroma wangi yang khas, biasanya disajikan dengan lauk pauk.</p>
+                    <span class="bahan-utama">Bahan Utama: Beras Lokal & Daun Pisang/Simpur</span>
+                </div>
             </div>
+
             <div class="food-card">
-                <img src="https://via.placeholder.com/300x200" alt="Kembuhung">
-                <h3>3. Kembuhung</h3>
-                <div class="food-info">Olahan ikan hasil fermentasi tradisional yang menggugah selera.</div>
+                <img class="food-img" src="https://via.placeholder.com/400x300?text=Kembuhung" alt="Kembuhung">
+                <div class="food-info">
+                    <h3>3. Kembuhung</h3>
+                    <p>Makanan hasil fermentasi ikan yang memberikan cita rasa asam dan gurih yang sangat kuat dan unik.</p>
+                    <span class="bahan-utama">Bahan Utama: Ikan Sungai & Nasi (Fermentasi)</span>
+                </div>
             </div>
+
             <div class="food-card">
-                <img src="https://via.placeholder.com/300x200" alt="Tempoyak">
-                <h3>4. Tempoyak</h3>
-                <div class="food-info">Sambal fermentasi durian khas Sumatera Selatan.</div>
+                <img class="food-img" src="https://via.placeholder.com/400x300?text=Tempoyak" alt="Tempoyak">
+                <div class="food-info">
+                    <h3>4. Tempoyak</h3>
+                    <p>Saus durian fermentasi yang biasanya dimasak dengan ikan patin atau dibuat sambal pedas.</p>
+                    <span class="bahan-utama">Bahan Utama: Daging Durian & Garam</span>
+                </div>
             </div>
+
             <div class="food-card">
-                <img src="https://via.placeholder.com/300x200" alt="Lemang">
-                <h3>5. Lemang</h3>
-                <div class="food-info">Beras ketan yang dimasak dalam bambu dengan santan gurih.</div>
+                <img class="food-img" src="https://via.placeholder.com/400x300?text=Lemang" alt="Lemang">
+                <div class="food-info">
+                    <h3>5. Lemang</h3>
+                    <p>Beras ketan yang dimasak di dalam bambu dengan santan, menghasilkan rasa gurih dan tekstur yang lembut.</p>
+                    <span class="bahan-utama">Bahan Utama: Beras Ketan, Santan, Bambu</span>
+                </div>
             </div>
+
         </div>
+
+        <div class="filter-section">
+            <h2 style="color: var(--hijau);">Cari Tempat Makan</h2>
+            <div class="filter-btns">
+                <button class="btn-kuliner active">Semua</button>
+                <button class="btn-kuliner">Kaki Lima (Street Food)</button>
+                <button class="btn-kuliner">Restoran Lokal</button>
+                <button class="btn-kuliner">Fine Dining</button>
+            </div>
+            <p id="filter-desc">Menampilkan semua tempat makan terbaik di Pagar Alam dari pusat kota hingga lereng gunung.</p>
+        </div>
+
+        <div class="market-banner">
+            <h2>Pengalaman Pasar Tradisional</h2>
+            <p style="margin: 20px 0; font-size: 1.1rem;">Kunjungi **Pasar Dempo Permai** untuk mencicipi jajanan pasar asli dan membeli bahan-bahan tempoyak segar langsung dari petani.</p>
+            <p><strong>Lokasi:</strong> Jl. Merdeka, Pusat Kota Pagar Alam</p>
+            <p><strong>Waktu Terbaik:</strong> Jam 06:00 - 10:00 Pagi</p>
+        </div>
+
     </div>
+
+    <footer style="background: #111; color: white; text-align: center; padding: 40px; margin-top: 60px;">
+        <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
+    </footer>
+
 </body>
 </html>
