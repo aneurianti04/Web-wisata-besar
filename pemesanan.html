@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form - Pagar Alam Tourism</title>
+    <style>
+        :root {
+            --hijau-tua: #1b5e20;
+            --hijau-muda: #2e7d32;
+            --kuning: #FFD700;
+            --putih: #ffffff;
+            --gelap: #0a230b;
+            --abu-input: #f4f4f4;
+        }
+
+        /* --- FULL SCREEN SETUP --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            background: var(--putih);
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: var(--hijau-tua); padding: 1.5rem 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            border-bottom: 5px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
+        }
+        nav .logo { color: white; font-weight: 900; font-size: 1.6rem; }
+        nav .logo span { color: var(--kuning); }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 25px; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+
+        /* MAIN WRAPPER */
+        .full-wrapper {
+            flex: 1;
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 80px);
+        }
+
+        /* SIDEBAR DOCK (TOMBOL BESAR) */
+        .sidebar-dock {
+            flex: 0 0 160px;
+            background: var(--gelap);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .dock-btn {
+            width: 110px; height: 110px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px; cursor: pointer;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: 0.5s; color: white;
+        }
+
+        .dock-btn .icon { font-size: 2.8rem; margin-bottom: 8px; }
+        .dock-btn span { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; text-align: center; }
+
+        .dock-btn.active {
+            background: var(--kuning); color: var(--hijau-tua);
+            transform: scale(1.15); box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* CONTENT FRAME */
+        .content-frame {
+            flex: 1;
+            padding: 50px 80px;
+            overflow-y: auto;
+            background: #fafafa;
+        }
+
+        .panel { display: none; }
+        .panel.active { display: block; animation: fadeInRight 0.8s ease; }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* FORM DESIGN */
+        .title-large { font-size: 3.5rem; font-weight: 900; color: var(--hijau-tua); margin-bottom: 10px; }
+        .hl-yellow { background: var(--kuning); padding: 0 10px; border-radius: 5px; }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        .input-group.full { grid-column: span 2; }
+        
+        label { font-weight: 700; color: var(--hijau-tua); font-size: 0.9rem; text-transform: uppercase; }
+        
+        input, select, textarea {
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            background: var(--abu-input);
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus { border-color: var(--hijau-muda); outline: none; background: white; }
+
+        .btn-submit {
+            grid-column: span 2;
+            background: var(--hijau-tua);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 20px;
+        }
+
+        .btn-submit:hover { background: var(--kuning); color: var(--hijau-tua); letter-spacing: 2px; }
+
+        /* INFO BOX */
+        .info-box {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #fbc02d;
+            font-size: 0.85rem;
+            grid-column: span 2;
+        }
+
+        footer { background: var(--gelap); color: white; text-align: center; padding: 30px; }
+
+        @media (max-width: 1024px) {
+            .full-wrapper { flex-direction: column; }
+            .sidebar-dock { flex-direction: row; width: 100%; height: 100px; }
+            .form-container { grid-template-columns: 1fr; }
+            .input-group.full { grid-column: span 1; }
+            .btn-submit { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PAGAR<span>ALAM</span></div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinasi.html">Destinasi</a></li>
+            <li><a href="responsible.html">Responsible</a></li>
+            <li><a href="booking.html" style="color:var(--kuning)">Booking</a></li>
+        </ul>
+    </nav>
+
+    <div class="full-wrapper">
+        <div class="sidebar-dock">
+            <button class="dock-btn active" onclick="changeStep('step1', this)">
+                <div class="icon">📝</div>
+                <span>Isi Data</span>
+            </button>
+            <button class="dock-btn" onclick="changeStep('step2', this)">
+                <div class="icon">💳</div>
+                <span>Bayar</span>
+            </button>
+        </div>
+
+        <div class="content-frame">
+            
+            <div id="step1" class="panel active">
+                <h1 class="title-large">Online <span class="hl-yellow">Booking</span></h1>
+                <p style="color: #666;">Silakan lengkapi formulir di bawah untuk memesan paket wisata Pagar Alam.</p>
+                
+                <form class="form-container">
+                    <div class="input-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" placeholder="Masukkan nama sesuai KTP">
+                    </div>
+                    <div class="input-group">
+                        <label>Nomor WhatsApp</label>
+                        <input type="number" placeholder="Contoh: 0812345xxx">
+                    </div>
+                    <div class="input-group">
+                        <label>Pilih Paket Wisata</label>
+                        <select>
+                            <option>Paket Jelajah Kebun Teh (1 Hari)</option>
+                            <option>Paket Pendakian Dempo (3 Hari 2 Malam)</option>
+                            <option>Paket Wisata Air Terjun (2 Hari)</option>
+                            <option>Custom Itinerary</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Tanggal Kedatangan</label>
+                        <input type="date">
+                    </div>
+                    <div class="input-group">
+                        <label>Jumlah Peserta</label>
+                        <input type="number" placeholder="Orang">
+                    </div>
+                    <div class="input-group">
+                        <label>Metode Penjemputan</label>
+                        <select>
+                            <option>Bandara Atung Bungsu</option>
+                            <option>Stasiun Lahat</option>
+                            <option>Pool Bus Pagar Alam</option>
+                            <option>Bawa Kendaraan Sendiri</option>
+                        </select>
+                    </div>
+                    <div class="input-group full">
+                        <label>Catatan Tambahan (Opsional)</label>
+                        <textarea rows="4" placeholder="Contoh: Alergi makanan, butuh kursi roda, dsb."></textarea>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>⚠️ Penting:</strong> Mohon periksa kembali data Anda. Konfirmasi pemesanan akan dikirimkan melalui WhatsApp dalam waktu maksimal 1x24 jam.
+                    </div>
+
+                    <button type="button" class="btn-submit">Lanjutkan Pemesanan</button>
+                </form>
+            </div>
+
+            <div id="step2" class="panel">
+                <h1 class="title-large">Payment <span class="hl-yellow">Method</span></h1>
+                <p style="color: #666;">Pilih metode pembayaran yang paling nyaman untuk Anda.</p>
+                
+                <div class="form-container" style="grid-template-columns: 1fr;">
+                    <div class="input-group">
+                        <label>Pilih Bank / E-Wallet</label>
+                        <select>
+                            <option>Transfer Bank Sumsel Babel</option>
+                            <option>Bank BRI (Virtual Account)</option>
+                            <option>Mandiri Online</option>
+                            <option>DANA / OVO / GoPay</option>
+                        </select>
+                    </div>
+                    <div style="background: #f1f8e9; padding: 30px; border-radius: 20px; text-align: center;">
+                        <p style="font-size: 0.9rem; color: #333;">Total Pembayaran Anda akan muncul setelah admin memverifikasi ketersediaan slot.</p>
+                        <h2 style="margin-top: 10px; color: var(--hijau-tua);">Menunggu Verifikasi...</h2>
+                    </div>
+                    <button type="button" class="btn-submit" style="background: #ccc; cursor: not-allowed;">Selesaikan Pembayaran</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
+    </footer>
+
+    <script>
+        function changeStep(id, btn) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.dock-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
+</body>
+</html>
