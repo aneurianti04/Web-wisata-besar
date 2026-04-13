@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Where to Stay - Pagar Alam Tourism</title>
     <style>
+        /* --- CSS INTERNAL --- */
         :root {
             --hijau: #228B22; 
             --kuning: #FFD700; 
@@ -12,11 +13,12 @@
             --hitam: #1a1a1a; 
             --abu-bg: #f4f7f6;
             --daun: #4caf50;
+            --eco-dark: #1b5e20;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         
-        html, body { height: 100%; display: flex; flex-direction: column; background: var(--abu-bg); }
+        html, body { height: 100%; display: flex; flex-direction: column; background: var(--abu-bg); color: var(--hitam); }
 
         /* NAVBAR */
         nav {
@@ -29,18 +31,20 @@
             position: sticky; top: 0; z-index: 1000;
         }
         nav .logo { color: white; font-weight: 800; font-size: 1.4rem; }
+        nav .logo span { color: var(--kuning); }
         nav ul { display: flex; list-style: none; }
         nav ul li { margin-left: 20px; }
-        nav ul li a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        nav ul li a:hover { color: var(--kuning); }
 
         .container { flex: 1; padding: 60px 5%; max-width: 1200px; margin: auto; width: 100%; }
 
-        /* STABILO EFFECT */
-        .hl-yellow { background: linear-gradient(transparent 50%, #fff176 50%); padding: 0 4px; border-radius: 4px; }
-        .hl-green { background: linear-gradient(transparent 50%, #a5d6a7 50%); padding: 0 4px; border-radius: 4px; }
-        .hl-eco { background: linear-gradient(transparent 50%, #81c784 50%); padding: 0 4px; border-radius: 4px; color: #1b5e20; font-weight: bold;}
+        /* STABILO HIGHLIGHT */
+        .hl-yellow { background: linear-gradient(transparent 50%, rgba(255, 241, 118, 0.9) 50%); padding: 0 4px; border-radius: 4px; }
+        .hl-green { background: linear-gradient(transparent 50%, rgba(165, 214, 167, 0.9) 50%); padding: 0 4px; border-radius: 4px; }
+        .hl-eco { background: linear-gradient(transparent 50%, rgba(129, 199, 132, 0.9) 50%); padding: 0 4px; border-radius: 4px; color: var(--eco-dark); font-weight: bold; }
 
-        /* TAB CARDS */
+        /* TAB NAVIGATION WITH IMAGES */
         .tab-wrapper { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
@@ -48,45 +52,55 @@
             margin-bottom: 50px; 
         }
         .tab-card {
-            background: white; border-radius: 15px; overflow: hidden; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.3s;
+            background: white; border-radius: 20px; overflow: hidden; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1); transition: 0.4s ease;
             position: relative; border: 4px solid transparent;
         }
-        .tab-card img { width: 100%; height: 140px; object-fit: cover; filter: brightness(60%); }
+        .tab-card img { width: 100%; height: 160px; object-fit: cover; filter: brightness(50%); transition: 0.4s; }
         .tab-card span {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            color: white; font-weight: 800; font-size: 0.9rem; width: 90%; text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            color: white; font-weight: 800; font-size: 1rem; width: 90%; text-align: center;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
         }
-        .tab-card.active { border-color: var(--kuning); transform: translateY(-5px); }
-        .tab-card.active img { filter: brightness(90%); }
+        .tab-card:hover { transform: translateY(-5px); }
+        .tab-card.active { border-color: var(--kuning); }
+        .tab-card.active img { filter: brightness(100%); }
+        .tab-card.active span { background: rgba(34, 139, 34, 0.8); padding: 5px 15px; border-radius: 8px; }
 
         /* CONTENT PANEL */
-        .content-panel { display: none; background: white; border-radius: 25px; padding: 45px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .content-panel.active { display: block; animation: fadeIn 0.5s ease; }
+        .content-panel { display: none; background: white; border-radius: 30px; padding: 50px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); }
+        .content-panel.active { display: block; animation: slideIn 0.6s ease; }
 
-        /* LISTING CARDS (FOR ACCOMMODATION TYPES) */
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* LISTING CARDS */
         .listing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px; }
-        .stay-card { border-radius: 15px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; }
-        .stay-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .stay-card img { width: 100%; height: 200px; object-fit: cover; }
-        .stay-info { padding: 20px; }
-        .stay-info h3 { color: var(--hijau); margin-bottom: 10px; }
-        .stay-info p { font-size: 0.9rem; color: #555; line-height: 1.6; }
+        .stay-card { border-radius: 20px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; background: #fff; }
+        .stay-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .stay-card img { width: 100%; height: 220px; object-fit: cover; }
+        .stay-info { padding: 25px; }
+        .stay-info h3 { color: var(--hijau); margin-bottom: 12px; font-size: 1.3rem; }
+        .stay-info p { font-size: 0.95rem; color: #555; line-height: 1.7; }
 
-        /* ECO TAG */
+        /* ECO BADGE */
         .eco-badge { 
-            background: #e8f5e9; color: #2e7d32; padding: 5px 15px; 
-            border-radius: 20px; font-size: 0.75rem; font-weight: bold; 
-            display: inline-block; margin-bottom: 10px; border: 1px solid #2e7d32;
+            background: #e8f5e9; color: #2e7d32; padding: 8px 20px; 
+            border-radius: 50px; font-size: 0.8rem; font-weight: 700; 
+            display: inline-block; margin-bottom: 15px; border: 2px solid #2e7d32;
         }
+
+        /* SECTION FLEX FOR STAYCATION & ECO */
+        .flex-section { display: flex; gap: 40px; margin-bottom: 50px; align-items: center; flex-wrap: wrap; }
+        .flex-image { flex: 1; min-width: 320px; }
+        .flex-image img { width: 100%; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .flex-text { flex: 1; min-width: 320px; }
+        .flex-text h3 { color: var(--hijau); font-size: 1.8rem; margin-bottom: 15px; }
+        .flex-text p { line-height: 1.8; margin-bottom: 20px; text-align: justify; }
 
         /* FOOTER */
         footer { background: #111; color: white; text-align: center; padding: 50px 0; margin-top: auto; border-top: 5px solid var(--hijau); }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        @media (max-width: 768px) { .content-panel { padding: 25px; } }
+        @media (max-width: 768px) { .content-panel { padding: 30px 20px; } .flex-section { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -103,109 +117,116 @@
     </nav>
 
     <div class="container">
-        <h1 style="text-align: center; margin-bottom: 10px; color: var(--hijau);">Tempat Menginap Terbaik</h1>
-        <p style="text-align: center; margin-bottom: 40px; color: #666;">Dari kemewahan puncak gunung hingga kehangatan rumah penduduk.</p>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h1 style="font-size: 2.5rem; color: var(--hijau);">Temukan <span class="hl-yellow">Rumah Kedua</span> Anda</h1>
+            <p style="color: #666; max-width: 700px; margin: 10px auto;">Pilih tempat beristirahat yang tepat untuk melengkapi petualangan Anda di Pagar Alam.</p>
+        </div>
 
         <div class="tab-wrapper">
             <div class="tab-card active" onclick="openStay('types', this)">
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=400" alt="Types">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=500" alt="Types">
                 <span>JENIS PENGINAPAN</span>
             </div>
             <div class="tab-card" onclick="openStay('staycation', this)">
-                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=400" alt="Staycation">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=500" alt="Staycation">
                 <span>STAYCATION IDEAS</span>
             </div>
             <div class="tab-card" onclick="openStay('eco', this)">
-                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=400" alt="Eco">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=500" alt="Eco">
                 <span>ECO-FRIENDLY STAY</span>
             </div>
         </div>
 
         <div id="types" class="content-panel active">
-            <h2>Pilihan <span class="hl-yellow">Akomodasi Sesuai Kebutuhan</span></h2>
-            <p style="margin-top: 15px; color: #555;">Pagar Alam menawarkan berbagai variasi tempat beristirahat yang dirancang untuk segala jenis wisatawan.</p>
-            
+            <h2>Pilihan <span class="hl-yellow">Kategori Penginapan</span></h2>
             <div class="listing-grid">
                 <div class="stay-card">
                     <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=500" alt="Luxury">
                     <div class="stay-info">
                         <h3>Resort & Villa Mewah</h3>
-                        <p>Nikmati fasilitas bintang lima dengan <span class="hl-green">Private Pool</span> dan balkon yang menghadap langsung ke hamparan kebun teh. Cocok untuk keluarga besar atau grup perusahaan.</p>
+                        <p>Fasilitas kelas atas dengan <span class="hl-green">View Gunung 180°</span>. Cocok untuk Anda yang menginginkan privasi dan kenyamanan maksimal di tengah alam.</p>
                     </div>
                 </div>
                 <div class="stay-card">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=500" alt="Boutique">
+                    <img src="https://images.unsplash.com/photo-1561501900-3701fa6a0864?q=80&w=500" alt="Boutique">
                     <div class="stay-info">
                         <h3>Hotel Butik (Boutique)</h3>
-                        <p>Penginapan dengan desain interior unik yang menggabungkan unsur modern dan <span class="hl-yellow">Arsitektur lokal Besemah</span>. Memberikan suasana yang lebih personal dan estetik.</p>
+                        <p>Paduan seni modern dan <span class="hl-yellow">Ukiran Khas Besemah</span>. Memberikan nuansa menginap yang unik, estetik, dan sangat *Instagramable*.</p>
                     </div>
                 </div>
                 <div class="stay-card">
                     <img src="https://images.unsplash.com/photo-1601918774947-25832bd4a0d0?q=80&w=500" alt="Homestay">
                     <div class="stay-info">
                         <h3>Homestay & Agrowisata</h3>
-                        <p>Menginap langsung di rumah penduduk atau area perkebunan kopi. Rasakan <span class="hl-green">Pengalaman memetik kopi</span> di pagi hari dan sarapan bersama warga lokal.</p>
+                        <p>Menginap bersama warga lokal. Pelajari cara <span class="hl-green">Menyangrai Kopi</span> secara tradisional dan nikmati sarapan khas pedesaan yang hangat.</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="staycation" class="content-panel">
-            <h2>Rekomendasi <span class="hl-yellow">Staycation View Terbaik</span></h2>
-            <div style="margin-top: 30px;">
-                <div style="display: flex; gap: 30px; margin-bottom: 40px; align-items: center; flex-wrap: wrap;">
-                    <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=500" style="width: 400px; border-radius: 20px; max-width: 100%;">
-                    <div style="flex: 1; min-width: 300px;">
-                        <h3 style="color: var(--hijau);">Puncak Dempo Villa & Resort</h3>
-                        <p style="line-height: 1.8; margin-top: 15px;">Berada di titik tertinggi pemukiman, villa ini menawarkan <span class="hl-green">Pandangan 360 derajat</span> ke arah kawah Gunung Dempo dan kelap-kelip lampu kota Pagar Alam di malam hari. Sangat direkomendasikan untuk pasangan yang mencari ketenangan (healing).</p>
-                    </div>
+            <h2>Inspirasi <span class="hl-yellow">Staycation Terbaik</span></h2>
+            
+            <div class="flex-section" style="margin-top: 30px;">
+                <div class="flex-image">
+                    <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=800" alt="Puncak Dempo">
                 </div>
-                <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap; flex-direction: row-reverse;">
-                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=500" style="width: 400px; border-radius: 20px; max-width: 100%;">
-                    <div style="flex: 1; min-width: 300px;">
-                        <h3 style="color: var(--hijau);">Green Paradise Agrostay</h3>
-                        <p style="line-height: 1.8; margin-top: 15px;">Dikelilingi oleh kolam ikan selokan yang jernih dan kebun sayur organik. <span class="hl-yellow">Suasana gemericik air</span> sepanjang hari menjadikannya tempat staycation favorit untuk melepas penat dari hiruk pikuk kota Palembang.</p>
-                    </div>
+                <div class="flex-text">
+                    <h3>Puncak Dempo Villa & Resort</h3>
+                    <p>Terletak di ketinggian strategis, akomodasi ini menawarkan sensasi <span class="hl-green">Menggapai Awan</span> dari jendela kamar Anda. Fasilitas perapian di ruang tengah akan menemani malam dingin Anda dengan kehangatan yang sempurna.</p>
+                </div>
+            </div>
+
+            <div class="flex-section" style="flex-direction: row-reverse;">
+                <div class="flex-image">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=800" alt="Green Paradise">
+                </div>
+                <div class="flex-text">
+                    <h3>Green Paradise Agrostay</h3>
+                    <p>Konsep staycation yang menyatu dengan <span class="hl-yellow">Budidaya Ikan & Kebun Organik</span>. Anda bisa memberi makan ikan langsung dari balkon kamar dan menikmati hasil bumi yang segar setiap harinya.</p>
                 </div>
             </div>
         </div>
 
         <div id="eco" class="content-panel">
-            <div style="text-align: center; margin-bottom: 30px;">
+            <div style="text-align: center; margin-bottom: 40px;">
                 <span class="eco-badge">🌿 TERVERIFIKASI RAMAH LINGKUNGAN</span>
                 <h2>Sustainability <span class="hl-eco">& Eco-Discovery Stay</span></h2>
             </div>
-            <p style="line-height: 1.8; text-align: justify;">Kami memberikan apresiasi khusus bagi penginapan yang menjaga kelestarian alam Pagar Alam. Akomodasi dalam kategori ini telah memenuhi syarat <span class="hl-green">Zero Plastic Policy</span>, pengelolaan limbah mandiri, dan penggunaan energi terbarukan.</p>
             
-            <div class="listing-grid">
-                <div class="stay-card" style="border: 2px solid #81c784;">
-                    <div class="stay-info">
-                        <h3 style="color: #2e7d32;">Besemah Eco-Lodge</h3>
-                        <p>Bangunan yang 90% terbuat dari bambu dan kayu bekas. Menggunakan <span class="hl-eco">Panel Surya</span> untuk penerangan malam hari dan tidak menyediakan botol plastik sekali pakai di dalam kamar.</p>
-                    </div>
+            <div class="flex-section">
+                <div class="flex-image">
+                    <img src="https://images.unsplash.com/photo-1518733057094-95b53143d2a7?q=80&w=800" alt="Eco Lodge">
                 </div>
-                <div class="stay-card" style="border: 2px solid #81c784;">
-                    <div class="stay-info">
-                        <h3 style="color: #2e7d32;">Rimba Camp (Glamping)</h3>
-                        <p>Konsep berkemah mewah yang meminimalkan jejak karbon. <span class="hl-eco">Sertifikat Green Tourism</span> diberikan karena kontribusinya dalam penanaman kembali pohon endemik di sekitar area perkemahan.</p>
-                    </div>
+                <div class="flex-text">
+                    <h3>Besemah Eco-Lodge</h3>
+                    <p>Dibangun dengan material bambu berkelanjutan, <span class="hl-eco">Besemah Eco-Lodge</span> meminimalkan penggunaan semen untuk menjaga pori-pori tanah pegunungan tetap alami.</p>
+                    <ul style="list-style: none;">
+                        <li>☀️ <strong>Solar Power:</strong> 100% menggunakan <span class="hl-yellow">Energi Matahari</span>.</li>
+                        <li>♻️ <strong>Zero Waste:</strong> Memiliki sistem pengolahan kompos mandiri untuk sisa makanan tamu.</li>
+                    </ul>
                 </div>
             </div>
-            
-            <div style="margin-top: 40px; background: #e8f5e9; padding: 25px; border-radius: 15px;">
-                <h4>Mengapa Memilih Eco-Stay?</h4>
-                <ul style="margin-top: 10px; padding-left: 20px;">
-                    <li>Mendukung ekonomi lokal melalui bahan makanan organik dari petani sekitar.</li>
-                    <li>Menjaga kesucian air pegunungan dengan sistem filtrasi limbah yang aman.</li>
-                    <li>Memberikan pengalaman tidur di alam terbuka tanpa merusak ekosistem.</li>
-                </ul>
+
+            <div class="flex-section" style="flex-direction: row-reverse;">
+                <div class="flex-image">
+                    <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?q=80&w=800" alt="Rimba Camp">
+                </div>
+                <div class="flex-text">
+                    <h3>Rimba Camp (Luxury Glamping)</h3>
+                    <p>Konsep menginap "Tanpa Jejak". <span class="hl-eco">Rimba Camp</span> menyediakan tenda mewah dengan sistem *portable* yang tidak merusak akar pohon di hutan sekitarnya.</p>
+                    <ul style="list-style: none;">
+                        <li>🚫 <strong>No Single-Use Plastic:</strong> Tamu diberikan <span class="hl-green">Botol Minum Reusable</span>.</li>
+                        <li>🌲 <strong>Reboisasi:</strong> Sebagian biaya menginap digunakan untuk menanam pohon endemik di Gunung Dempo.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
         <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
-        <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">Mari Menginap dan Menjaga Alam Besemah Tetap Lestari.</p>
+        <p style="font-size: 0.8rem; color: #555; margin-top: 15px;">Didesain dengan bangga untuk memperkenalkan keindahan Bumi Besemah.</p>
     </footer>
 
     <script>
