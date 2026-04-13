@@ -3,122 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aktivitas & Pengalaman - Pagar Alam Tourism</title>
+    <title>Aktivitas Seru - Pagar Alam Tourism</title>
     <style>
-        /* CSS INTERNAL */
         :root {
-            --hijau: #228B22;
-            --kuning: #FFD700;
-            --merah: #FF0000;
-            --putih: #ffffff;
-            --abu-muda: #f9f9f9;
-            --hitam: #333;
+            --hijau: #228B22; --kuning: #FFD700; --merah: #FF0000;
+            --putih: #ffffff; --abu: #f1f3f5; --hitam: #2d3436;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--abu-muda); color: var(--hitam); line-height: 1.6; }
+        body { background-color: var(--abu); color: var(--hitam); }
 
-        /* Navigation */
         nav {
-            background: var(--hijau);
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--kuning);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            background: var(--hijau); padding: 1rem 5%; display: flex;
+            justify-content: space-between; align-items: center;
+            border-bottom: 4px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
         }
-        nav .logo { color: white; font-weight: bold; font-size: 1.2rem; }
-        nav .logo span { color: var(--kuning); }
-        nav ul { display: flex; list-style: none; }
-        nav ul li { margin-left: 20px; }
-        nav ul li a { color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+        nav a { color: white; text-decoration: none; font-weight: 600; margin-left: 20px; }
 
         .container { padding: 60px 5%; max-width: 1200px; margin: auto; }
-        .section-title { text-align: center; color: var(--hijau); margin-bottom: 40px; font-size: 2rem; }
+        .section-title { text-align: center; color: var(--hijau); margin-bottom: 40px; font-size: 2.2rem; }
 
-        /* --- FITUR FILTER INTERAKTIF --- */
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
+        /* --- FITUR FILTER --- */
+        .filter-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
         .filter-btn {
-            padding: 12px 25px;
-            border: 2px solid var(--hijau);
-            background: white;
-            color: var(--hijau);
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
+            padding: 12px 25px; border: 2px solid var(--hijau); background: white;
+            color: var(--hijau); border-radius: 50px; cursor: pointer; font-weight: 600; transition: 0.3s;
         }
-        .filter-btn.active, .filter-btn:hover {
-            background: var(--hijau);
-            color: white;
-        }
+        .filter-btn.active, .filter-btn:hover { background: var(--hijau); color: white; }
 
+        /* --- DISPLAY AREA DENGAN GAMBAR --- */
         #category-display {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 80px;
-            border-top: 5px solid var(--kuning);
-            transition: 0.5s;
+            background: white; border-radius: 20px; overflow: hidden;
+            display: grid; grid-template-columns: 1fr 1fr;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-bottom: 80px;
+            min-height: 400px; border-bottom: 8px solid var(--kuning);
         }
-        #category-display h3 { color: var(--hijau); margin-bottom: 10px; }
-        #cat-list { margin-top: 15px; padding-left: 20px; }
-        #cat-list li { margin-bottom: 8px; }
+        .display-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .display-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+        .display-content h3 { color: var(--hijau); font-size: 1.8rem; margin-bottom: 15px; }
+        .display-content ul { margin-top: 20px; padding-left: 20px; color: #555; }
 
         /* --- SEASONAL GUIDE --- */
-        .seasonal-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
+        .seasonal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .season-box {
-            padding: 35px;
-            border-radius: 20px;
-            color: white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: 0.3s;
+            position: relative; padding: 40px; border-radius: 25px; color: white;
+            overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        .season-box:hover { transform: translateY(-5px); }
-        .summer { background: linear-gradient(135deg, #FF8C00 0%, #FFD700 100%); } /* Oranye Panas */
-        .rainy { background: linear-gradient(135deg, #2B32B2 0%, #1488CC 100%); } /* Biru Dingin */
-        
-        .season-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .season-header span { font-size: 2.5rem; }
-        .season-box ul { padding-left: 20px; margin-top: 15px; }
-        .season-box li { margin-bottom: 10px; font-size: 0.95rem; }
+        .season-box.summer { background: linear-gradient(rgba(255,140,0,0.8), rgba(255,215,0,0.8)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80'); background-size: cover; }
+        .season-box.rainy { background: linear-gradient(rgba(43,50,178,0.8), rgba(20,136,204,0.8)), url('https://images.unsplash.com/photo-1428592953211-077101b2021b?auto=format&fit=crop&w=800&q=80'); background-size: cover; }
+        .season-box h3 { font-size: 1.6rem; margin-bottom: 10px; }
+        .season-box li { margin-top: 8px; font-weight: 500; }
 
         @media (max-width: 768px) {
+            #category-display { grid-template-columns: 1fr; }
+            .display-img { height: 250px; }
             .seasonal-grid { grid-template-columns: 1fr; }
-            .section-title { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">PAGAR<span>ALAM</span></div>
-        <ul>
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="destinasi.html">DESTINASI</a></li>
-            <li><a href="aktivitas.html">AKTIVITAS</a></li>
-        </ul>
+        <div style="color:white; font-weight:800; font-size:1.4rem;">PAGAR<span style="color:var(--kuning)">ALAM</span></div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="destinasi.html">Destinasi</a>
+            <a href="aktivitas.html">Aktivitas</a>
+        </div>
     </nav>
 
     <div class="container">
         
         <h2 class="section-title">Eksplorasi Berdasarkan Minat</h2>
+        
         <div class="filter-container">
-            <button class="filter-btn active" onclick="updateFilter('semua', this)">Semua Aktivitas</button>
+            <button class="filter-btn active" onclick="updateFilter('semua', this)">Semua</button>
             <button class="filter-btn" onclick="updateFilter('petualangan', this)">Petualangan</button>
             <button class="filter-btn" onclick="updateFilter('keluarga', this)">Keluarga</button>
             <button class="filter-btn" onclick="updateFilter('romantis', this)">Romantis</button>
@@ -126,96 +85,92 @@
         </div>
 
         <div id="category-display">
-            <h3 id="cat-title">Selamat Datang di Pagar Alam</h3>
-            <p id="cat-text">Silakan pilih kategori minat di atas untuk melihat rekomendasi aktivitas terbaik yang dirancang khusus untuk Anda.</p>
-            <ul id="cat-list"></ul>
+            <img id="cat-img" class="display-img" src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" alt="Pagar Alam">
+            <div class="display-content">
+                <h3 id="cat-title">Aktivitas Terbaik</h3>
+                <p id="cat-text">Pilih kategori minat untuk melihat foto dan daftar aktivitas unik yang bisa Anda lakukan di Pagar Alam.</p>
+                <ul id="cat-list"></ul>
+            </div>
         </div>
 
-        <h2 class="section-title">Panduan Musim (Seasonal Guide)</h2>
+        <h2 class="section-title">Panduan Musim</h2>
         <div class="seasonal-grid">
-            
             <div class="season-box summer">
-                <div class="season-header">
-                    <span>☀️</span>
-                    <h3>Musim Cerah (Panas)<br><small>April - Oktober</small></h3>
-                </div>
-                <p>Langit biru bersih dan udara sejuk yang menyegarkan. Waktu terbaik untuk aktivitas luar ruangan yang intens.</p>
+                <h3>☀️ Musim Cerah</h3>
+                <p>Terbaik untuk penjelajahan alam bebas dan pendakian gunung.</p>
                 <ul>
-                    <li><strong>Pendakian Gunung:</strong> Jalur kering dan aman menuju Puncak Dempo.</li>
-                    <li><strong>Camping:</strong> Menikmati malam bertabur bintang di Rimba Candi.</li>
-                    <li><strong>Tea Walk:</strong> Berjalan di antara hamparan kebun teh tanpa gangguan hujan.</li>
-                    <li><strong>Event Outdoor:</strong> Waktu utama pelaksanaan festival budaya tahunan.</li>
+                    <li>Pendakian Puncak Dempo</li>
+                    <li>Festival Budaya Tahunan</li>
+                    <li>Sesi Foto Landscape</li>
                 </ul>
             </div>
-
             <div class="season-box rainy">
-                <div class="season-header">
-                    <span>🌧️</span>
-                    <h3>Musim Dingin (Hujan)<br><small>November - Maret</small></h3>
-                </div>
-                <p>Kabut tebal menyelimuti kota dan suhu menjadi lebih dingin. Memberikan suasana syahdu yang luar biasa.</p>
+                <h3>🌧️ Musim Kabut</h3>
+                <p>Suasana syahdu untuk relaksasi dan menikmati kuliner panas.</p>
                 <ul>
-                    <li><strong>Wisata Air Terjun:</strong> Debit air terjun (Cughup) berada pada kondisi paling megah.</li>
-                    <li><strong>Coffee Tasting:</strong> Menikmati Kopi Robusta panas di tengah kabut gunung.</li>
-                    <li><strong>Wisata Indoor:</strong> Menjelajahi sejarah di Rumah Adat Basemah.</li>
-                    <li><strong>Staycation:</strong> Relaksasi di Villa dengan pemandangan pegunungan yang berkabut.</li>
+                    <li>Wisata Air Terjun Megah</li>
+                    <li>Wisata Kopi & Kuliner</li>
+                    <li>Staycation di Villa Berkabut</li>
                 </ul>
             </div>
-
         </div>
 
     </div>
 
-    <footer style="background: var(--hitam); color: white; text-align: center; padding: 30px; margin-top: 60px;">
+    <footer style="background: #111; color: white; text-align: center; padding: 40px; margin-top: 60px;">
         <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
     </footer>
 
     <script>
         function updateFilter(type, element) {
-            // Update tombol aktif
-            const btns = document.querySelectorAll('.filter-btn');
-            btns.forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
 
             const title = document.getElementById('cat-title');
             const text = document.getElementById('cat-text');
             const list = document.getElementById('cat-list');
+            const img = document.getElementById('cat-img');
 
-            // Konten Data
-            const data = {
+            const content = {
                 petualangan: {
-                    title: "Kategori: Petualangan (Adventure)",
-                    desc: "Uji nyali dan adrenalin Anda di alam liar Pagar Alam.",
-                    items: ["Pendakian Puncak Dempo", "Rafting Sungai Lematang", "Offroad Kebun Teh", "Jelajah Hutan Rimba"]
+                    title: "Petualangan Adrenalin",
+                    text: "Taklukkan alam liar dengan aktivitas menantang di dataran tinggi Basemah.",
+                    items: ["Pendakian Puncak Dempo", "Rafting Sungai Lematang", "Offroad Jeep Kebun Teh"],
+                    img: "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?auto=format&fit=crop&w=800&q=80"
                 },
                 keluarga: {
-                    title: "Kategori: Keluarga (Family Friendly)",
-                    desc: "Aktivitas aman dan edukatif untuk momen kebersamaan yang berkesan.",
-                    items: ["Rekreasi di Dempo Park", "Melihat Ikan di Green Paradise", "Piknik di Tangga Seribu", "Belajar Sejarah Megalithikum"]
+                    title: "Kebahagiaan Keluarga",
+                    text: "Ciptakan memori indah bersama anak-anak di taman wisata yang ramah lingkungan.",
+                    items: ["Piknik di Dempo Park", "Green Paradise Penangkaran Ikan", "Jalan Santai Tangga Seribu"],
+                    img: "https://images.unsplash.com/photo-1464333931322-194101e4796c?auto=format&fit=crop&w=800&q=80"
                 },
                 romantis: {
-                    title: "Kategori: Romantis & Honeymoon",
-                    desc: "Suasana tenang dan pemandangan indah untuk momen spesial berdua.",
-                    items: ["Makan Malam View Gunung", "Foto Estetik di Danau Tebat Gheban", "Staycation di Villa Kebun Teh", "Jalan Santai di Jalur Kabut"]
+                    title: "Momen Romantis",
+                    text: "Suasana sejuk dan pemandangan kawah Dempo sangat cocok untuk pasangan.",
+                    items: ["Dinner View Kaki Gunung", "Foto Estetik Danau Tebat Gheban", "Villa Honeymoon Kebun Teh"],
+                    img: "https://images.unsplash.com/photo-1516589174184-c6852661bbf3?auto=format&fit=crop&w=800&q=80"
                 },
                 nomad: {
-                    title: "Kategori: Digital Nomad",
-                    desc: "Bekerja lebih produktif dengan udara segar dan ketenangan maksimal.",
-                    items: ["Work from Cafe (View Gunung)", "Koneksi Stabil di Homestay Pilihan", "Lingkungan Bebas Kebisingan", "Inspirasi Alam untuk Kreativitas"]
+                    title: "Digital Nomad",
+                    text: "Bekerja dengan koneksi internet sambil menghirup udara pegunungan.",
+                    items: ["Work from Cafe (View Dempo)", "Akomodasi Tenang & Nyaman", "Inspirasi Alam untuk Karya"],
+                    img: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80"
                 },
                 semua: {
-                    title: "Selamat Datang di Pagar Alam",
-                    desc: "Silakan pilih kategori minat di atas untuk melihat rekomendasi aktivitas terbaik yang dirancang khusus untuk Anda.",
-                    items: []
+                    title: "Aktivitas Terbaik",
+                    text: "Pilih kategori minat untuk melihat foto dan daftar aktivitas unik yang bisa Anda lakukan di Pagar Alam.",
+                    items: ["Jelajahi Alam", "Rasakan Budaya", "Nikmati Kuliner"],
+                    img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80"
                 }
             };
 
-            const selected = data[type];
-            title.innerText = selected.title;
-            text.innerText = selected.desc;
+            const data = content[type];
+            title.innerText = data.title;
+            text.innerText = data.text;
+            img.src = data.img;
             
             list.innerHTML = "";
-            selected.items.forEach(item => {
+            data.items.forEach(item => {
                 const li = document.createElement('li');
                 li.innerText = item;
                 list.appendChild(li);
