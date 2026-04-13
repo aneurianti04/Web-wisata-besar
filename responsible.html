@@ -13,100 +13,115 @@
             --abu-bg: #fdfdfd;
         }
 
+        /* --- PENGATURAN LAYOUT UTAMA --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        html, body { height: 100%; background: var(--abu-bg); }
-
-        /* NAVBAR */
-        nav {
-            background: var(--hijau-tua); padding: 1.2rem 5%; display: flex;
-            justify-content: space-between; align-items: center;
-            border-bottom: 4px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
+        
+        /* Body sebagai Flex Container agar footer bisa didorong ke bawah */
+        body { 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; /* Tinggi minimal seukuran layar penuh */
+            background: var(--abu-bg); 
         }
-        nav .logo { color: white; font-weight: 800; }
+
+        /* HEADER / NAVBAR */
+        nav {
+            background: var(--hijau-tua); 
+            padding: 1.2rem 5%; 
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 4px solid var(--kuning); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+        }
+        nav .logo { color: white; font-weight: 800; font-size: 1.4rem; }
         nav .logo span { color: var(--kuning); }
         nav ul { display: flex; list-style: none; }
         nav ul li { margin-left: 20px; }
         nav ul li a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
 
-        /* LAYOUT BARU: SIDEBAR TABS */
-        .main-content {
-            display: flex; gap: 40px; padding: 60px 5%;
-            max-width: 1300px; margin: auto;
+        /* MAIN CONTENT AREA */
+        .main-wrapper {
+            flex: 1; /* Ini yang mendorong footer tetap di bawah */
+            display: flex; 
+            gap: 40px; 
+            padding: 60px 5%;
+            max-width: 1300px; 
+            margin: auto;
+            width: 100%;
         }
 
-        /* TAB SIDEBAR */
+        /* SIDEBAR TABS */
         .tab-sidebar {
-            flex: 0 0 300px; display: flex; flex-direction: column; gap: 20px;
+            flex: 0 0 300px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px;
         }
 
         .tab-card {
-            background: white; border-radius: 20px; overflow: hidden; cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.4s;
-            position: relative; border: 2px solid #eee; display: flex; align-items: center;
-            height: 100px;
+            background: white; border-radius: 15px; overflow: hidden; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.4s;
+            display: flex; align-items: center; height: 90px; border: 1px solid #eee;
         }
 
-        .tab-card img { width: 80px; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.4s; }
+        .tab-card img { width: 70px; height: 100%; object-fit: cover; filter: grayscale(100%); }
         
-        .tab-card .tab-label {
-            padding: 0 20px; font-weight: 700; font-size: 0.85rem; color: #666;
-            text-transform: uppercase; line-height: 1.2;
-        }
+        .tab-card .tab-label { padding: 0 15px; font-weight: 700; font-size: 0.8rem; color: #666; text-transform: uppercase; }
 
         .tab-card.active {
-            border-color: var(--hijau-muda); transform: translateX(15px);
-            box-shadow: -10px 10px 25px rgba(46, 125, 50, 0.1);
+            border-left: 8px solid var(--kuning);
+            transform: translateX(10px);
+            background: #f1f8e9;
         }
-
         .tab-card.active img { filter: grayscale(0%); }
         .tab-card.active .tab-label { color: var(--hijau-tua); }
 
-        /* CONTENT AREA */
-        .content-display { flex: 1; background: white; border-radius: 40px; padding: 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.05); }
-        .panel { display: none; animation: fadeInRight 0.6s ease; }
+        /* CONTENT DISPLAY */
+        .content-display { 
+            flex: 1; 
+            background: white; 
+            border-radius: 30px; 
+            padding: 40px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            min-height: 500px;
+        }
+        .panel { display: none; animation: fadeIn 0.5s ease; }
         .panel.active { display: block; }
 
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* DEKORASI TEKS STABILO GANDA */
-        .super-title { font-size: 2.2rem; color: var(--hijau-tua); margin-bottom: 25px; line-height: 1.2; }
-        
+        /* HIASAN TEKS STABILO GANDA */
+        .super-title { font-size: 2rem; color: var(--hijau-tua); margin-bottom: 20px; }
         .hl-double {
-            position: relative; z-index: 1;
+            position: relative; display: inline-block;
         }
         .hl-double::before {
-            content: ""; position: absolute; left: 0; bottom: 2px;
-            width: 100%; height: 12px; background: rgba(255, 215, 0, 0.4);
-            z-index: -1; transform: skewX(-15deg);
-        }
-        .hl-double::after {
-            content: ""; position: absolute; left: 0; bottom: 8px;
-            width: 100%; height: 6px; background: rgba(46, 125, 50, 0.2);
-            z-index: -1;
+            content: ""; position: absolute; left: 0; bottom: 4px;
+            width: 100%; height: 10px; background: rgba(255, 215, 0, 0.4); z-index: -1;
         }
 
-        /* ISI KONTEN */
-        .desc-text { line-height: 1.8; color: #444; margin-bottom: 25px; text-align: justify; }
-        
-        .feature-list { list-style: none; }
         .feature-item { 
-            background: #f9f9f9; padding: 20px; border-radius: 15px; 
-            margin-bottom: 15px; border-left: 6px solid var(--hijau-muda);
-            transition: 0.3s;
+            background: #f9f9f9; padding: 15px; border-radius: 12px; 
+            margin-bottom: 15px; border-left: 5px solid var(--hijau-muda);
         }
-        .feature-item:hover { background: #f1f8e9; transform: scale(1.02); }
 
-        footer { background: #111; color: white; text-align: center; padding: 40px; border-top: 5px solid var(--hijau-muda); }
+        /* FOOTER TETAP DI BAWAH */
+        footer { 
+            background: #111; 
+            color: white; 
+            text-align: center; 
+            padding: 40px; 
+            border-top: 5px solid var(--hijau-muda);
+        }
 
         /* RESPONSIVE */
         @media (max-width: 992px) {
-            .main-content { flex-direction: column; }
-            .tab-sidebar { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-            .tab-card { flex: 1; min-width: 250px; }
-            .tab-card.active { transform: translateY(-10px); }
+            .main-wrapper { flex-direction: column; }
+            .tab-sidebar { flex-direction: row; flex-wrap: wrap; }
+            .tab-card { flex: 1; min-width: 200px; }
         }
     </style>
 </head>
@@ -122,66 +137,49 @@
         </ul>
     </nav>
 
-    <div class="main-content">
+    <div class="main-wrapper">
         <div class="tab-sidebar">
             <div class="tab-card active" onclick="showPanel('rules', this)">
                 <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=200">
-                <div class="tab-label">Green Rules & Satwa</div>
+                <div class="tab-label">Green Rules</div>
             </div>
             <div class="tab-card" onclick="showPanel('umkm', this)">
                 <img src="https://images.unsplash.com/photo-1591084728795-1149fb3a28c2?q=80&w=200">
-                <div class="tab-label">Dukung UMKM Lokal</div>
+                <div class="tab-label">Local UMKM</div>
             </div>
             <div class="tab-card" onclick="showPanel('vol', this)">
                 <img src="https://images.unsplash.com/photo-1544650039-22886fbb4323?q=80&w=200">
-                <div class="tab-label">Eco Volunteering</div>
+                <div class="tab-label">Eco Volunteer</div>
             </div>
         </div>
 
         <div class="content-display">
-            
             <div id="rules" class="panel active">
-                <h1 class="super-title">Kampanye <span class="hl-double">Bebas Plastik</span> & Perlindungan Satwa</h1>
-                <p class="desc-text">Perjalanan yang bertanggung jawab dimulai dari kesadaran diri sendiri. Di Pagar Alam, kami menerapkan aturan ketat untuk menjaga ekosistem pegunungan tetap murni. Teks ini dirancang untuk memberikan edukasi mendalam bagi setiap pengunjung yang datang ke kaki Gunung Dempo.</p>
-                
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <strong>🚫 Larangan Plastik Sekali Pakai:</strong> Kami mewajibkan wisatawan membawa wadah makan dan minum sendiri. Sampah plastik adalah musuh utama kesuburan tanah Besemah.
-                    </div>
-                    <div class="feature-item">
-                        <strong>🐒 Etika Terhadap Satwa:</strong> Satwa liar di sini bukan tontonan sirkus. Jangan memberi makan atau mendekati habitat asli mereka agar keseimbangan rantai makanan tetap terjaga.
-                    </div>
+                <h1 class="super-title">Kampanye <span class="hl-double">Bebas Plastik</span></h1>
+                <p style="line-height: 1.8; color: #555; margin-bottom: 20px;">Menjaga Pagar Alam tetap bersih adalah tugas kita bersama. Dengan mengurangi sampah plastik, kita menjaga sumber mata air tetap murni.</p>
+                <div class="feature-item">
+                    <strong>🌿 Say No to Plastic:</strong> Gunakan tas ramah lingkungan saat belanja oleh-oleh.
+                </div>
+                <div class="feature-item">
+                    <strong>💧 Refill Station:</strong> Gunakan tumbler dan isi ulang air di pos-pos pendakian resmi.
                 </div>
             </div>
 
             <div id="umkm" class="panel">
-                <h1 class="super-title">Cintai <span class="hl-double">Produk Lokal</span> Besemah</h1>
-                <p class="desc-text">Mendukung UMKM bukan sekadar belanja, tapi membantu melestarikan warisan nenek moyang. Setiap kerajinan dan hasil tani yang Anda beli adalah nafas bagi ekonomi kerakyatan di Pagar Alam.</p>
-                
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <strong>☕ Kopi Robusta Premium:</strong> Belilah langsung dari sangrai rumahan penduduk desa untuk mendapatkan kualitas terbaik dengan harga yang adil bagi petani.
-                    </div>
-                    <div class="feature-item">
-                        <strong>🎨 Kerajinan Tangan:</strong> Souvenir berbahan bambu dan rotan hasil karya pengrajin lokal sangat cocok untuk menghias rumah Anda sekaligus membantu kelestarian seni kriya.
-                    </div>
+                <h1 class="super-title">Dukung <span class="hl-double">UMKM Lokal</span></h1>
+                <p style="line-height: 1.8; color: #555; margin-bottom: 20px;">Bantulah ekonomi kreatif masyarakat Besemah dengan membeli produk-produk lokal berkualitas tinggi.</p>
+                <div class="feature-item">
+                    <strong>🛍️ Oleh-oleh Khas:</strong> Kerajinan rotan dan kopi robusta langsung dari petani.
                 </div>
             </div>
 
             <div id="vol" class="panel">
-                <h1 class="super-title">Menjadi <span class="hl-double">Relawan Hijau</span></h1>
-                <p class="desc-text">Ingin liburan yang lebih bermakna? Bergabunglah dengan program konservasi kami. Kami membuka pintu selebar-lebarnya bagi Anda yang ingin mendonasikan waktu dan tenaga untuk alam.</p>
-                
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <strong>🌳 Program Adopsi Pohon:</strong> Tanam pohon atas namamu sendiri di area kritis hutan lindung dan pantau pertumbuhannya setiap tahun melalui sistem digital kami.
-                    </div>
-                    <div class="feature-item">
-                        <strong>🧹 Aksi Bersih Jalur:</strong> Jadilah bagian dari tim yang memastikan jalur pendakian Gunung Dempo tetap bersih dan nyaman untuk semua orang.
-                    </div>
+                <h1 class="super-title">Aksi <span class="hl-double">Eco Volunteer</span></h1>
+                <p style="line-height: 1.8; color: #555; margin-bottom: 20px;">Ikuti program penanaman pohon dan pembersihan jalur wisata bersama komunitas lokal.</p>
+                <div class="feature-item">
+                    <strong>🌳 Tanam Kebaikan:</strong> Satu wisatawan, satu pohon untuk masa depan Dempo.
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -193,7 +191,6 @@
         function showPanel(id, el) {
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-card').forEach(c => c.classList.remove('active'));
-            
             document.getElementById(id).classList.add('active');
             el.classList.add('active');
         }
