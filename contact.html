@@ -3,283 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Support & International Booking - Pagar Alam</title>
+    <title>Support & Booking - Pagar Alam</title>
     <style>
-        :root {
-            --hijau-pplg: #1b5e20;
-            --kuning-pplg: #FFD700;
-            --merah-alert: #d32f2f;
-            --biru-safe: #0d47a1;
-            --gelap: #011627;
-            --putih: #ffffff;
-            --abu-bg: #f0f4f7;
-        }
-
-        /* --- FULL SCREEN SETUP --- */
+        /* CSS RESET & FULL SCREEN */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        :root { --biru: #0d47a1; --kuning: #FFD700; --gelap: #011627; }
         
-        body { 
-            display: flex; flex-direction: column; min-height: 100vh; 
-            background: var(--abu-bg); overflow: hidden; 
-        }
+        body { display: flex; flex-direction: column; min-height: 100vh; overflow: hidden; }
 
-        nav {
-            background: var(--biru-safe); padding: 1.2rem 5%; display: flex;
-            justify-content: space-between; align-items: center;
-            border-bottom: 5px solid var(--kuning-pplg); position: sticky; top: 0; z-index: 1000;
-        }
-        nav .logo { color: white; font-weight: 900; font-size: 1.5rem; }
-        nav .logo span { color: var(--kuning-pplg); }
-        nav ul { display: flex; list-style: none; }
-        nav ul li { margin-left: 20px; }
+        /* NAVBAR FIX */
+        nav { background: var(--biru); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--kuning); }
+        nav ul { display: flex; list-style: none; gap: 15px; }
         nav ul li a { color: white; text-decoration: none; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+        .btn-nav { background: var(--kuning); color: var(--biru) !important; padding: 5px 15px; border-radius: 5px; }
 
-        .full-wrapper { flex: 1; display: flex; width: 100%; height: calc(100vh - 80px); }
+        /* LAYOUT PERBAIKAN */
+        .main-container { flex: 1; display: flex; height: calc(100vh - 70px); }
+        
+        /* SIDEBAR */
+        .sidebar { flex: 0 0 150px; background: var(--gelap); display: flex; flex-direction: column; gap: 10px; padding: 20px 10px; }
+        .tab-btn { background: rgba(255,255,255,0.1); border: none; color: white; padding: 15px 5px; border-radius: 15px; cursor: pointer; transition: 0.3s; font-size: 0.7rem; font-weight: bold; }
+        .tab-btn.active { background: var(--kuning); color: var(--gelap); }
 
-        /* SIDEBAR DOCK */
-        .sidebar-dock {
-            flex: 0 0 160px; background: var(--gelap);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;
-            border-right: 4px solid var(--biru-safe);
-        }
-
-        .dock-btn {
-            width: 120px; height: 110px; background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
-            cursor: pointer; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; transition: 0.4s; color: white;
-        }
-
-        .dock-btn .icon { font-size: 2.5rem; margin-bottom: 5px; }
-        .dock-btn span { font-size: 0.65rem; font-weight: 800; text-align: center; line-height: 1.2; text-transform: uppercase; }
-
-        .dock-btn.active {
-            background: var(--kuning-pplg); color: var(--biru-safe);
-            transform: scale(1.1); box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); border: none;
-        }
-
-        /* CONTENT FRAME */
-        .content-frame { flex: 1; padding: 50px; overflow-y: auto; scroll-behavior: smooth; }
+        /* CONTENT AREA */
+        .content { flex: 1; padding: 40px; overflow-y: auto; background: #f4f7f6; }
         .panel { display: none; }
-        .panel.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .panel.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* FORM & CARD STYLING */
+        .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        input, select, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        .full { grid-column: span 2; }
+        .btn-submit { grid-column: span 2; background: var(--biru); color: white; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        
+        .emergency-card { background: white; padding: 20px; border-radius: 15px; border-left: 8px solid red; margin-bottom: 15px; box-shadow: 0 5px 10px rgba(0,0,0,0.05); }
 
-        .big-title { font-size: 3.2rem; font-weight: 900; color: var(--biru-safe); line-height: 1; margin-bottom: 10px; }
-        .hl { background: var(--kuning-pplg); padding: 0 12px; border-radius: 8px; }
-
-        /* --- EMERGENCY & FAQ SECTIONS --- */
-        .e-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px; }
-        .card-custom { 
-            background: white; padding: 25px; border-radius: 20px; 
-            border-left: 10px solid var(--merah-alert); box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-        .card-custom h3 { color: var(--merah-alert); margin-bottom: 5px; }
-        .card-custom .telp { font-size: 1.6rem; font-weight: 900; color: #222; }
-
-        .faq-box { background: white; padding: 20px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #ddd; }
-        .faq-box h4 { color: var(--biru-safe); margin-bottom: 8px; }
-
-        /* --- GLOBAL BOOKING FORM (RINCI) --- */
-        .secure-booking {
-            background: white; padding: 40px; border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1); margin-top: 25px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-        }
-        .field { display: flex; flex-direction: column; gap: 8px; }
-        .field.full { grid-column: span 2; }
-        label { font-weight: 800; font-size: 0.75rem; color: var(--biru-safe); text-transform: uppercase; }
-        input, select, textarea { 
-            padding: 14px; border-radius: 10px; border: 2px solid #eee; 
-            background: #f9f9f9; font-size: 0.95rem; 
-        }
-        input:focus { border-color: var(--biru-safe); background: #fff; outline: none; }
-
-        .price-badge {
-            grid-column: span 2; background: #fff9c4; padding: 20px;
-            border-radius: 15px; border: 2px dashed var(--biru-safe);
-            text-align: center; font-weight: 700; color: var(--biru-safe);
-        }
-
-        .btn-pay {
-            grid-column: span 2; background: var(--biru-safe); color: white;
-            padding: 20px; border: none; border-radius: 15px;
-            font-size: 1.2rem; font-weight: 900; cursor: pointer; transition: 0.3s;
-            text-transform: uppercase;
-        }
-        .btn-pay:hover { background: var(--kuning-pplg); color: var(--biru-safe); }
-
-        footer { background: var(--gelap); color: white; text-align: center; padding: 30px; }
-
-        @media (max-width: 1024px) {
-            .full-wrapper { flex-direction: column; }
-            .sidebar-dock { flex-direction: row; width: 100%; height: 110px; border-right: none; border-bottom: 4px solid var(--biru-safe); }
-            .secure-booking { grid-template-columns: 1fr; }
-            .field.full { grid-column: span 1; }
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; }
+            .sidebar { flex-direction: row; flex: none; height: auto; overflow-x: auto; }
+            .booking-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">PAGAR<span>ALAM</span> OFFICIAL</div>
+        <div style="color:white; font-weight:bold;">PAGAR ALAM</div>
         <ul>
-            <li><a href="index.html">BERANDA</a></li>
-            <li><a href="destinasi.html">DESTINASI</a></li>
-            <li><a href="aktivitas.html">GALERI</a></li>
-            <li><a href="budaya.html">BUDAYA</a></li>
-            <li><a href="kuliner.html">KULINER</a></li>
-            <li><a href="trip.html">RENCANA</a></li>
-            <li><a href="itinerary.html">PAKET TOUR</a></li>
-            <li><a href="akomodasi.html">PENGINAPAN</a></li>
-            <li><a href="responsible.html">EKOWISATA</a></li>
-            <li><a href="contact.html"style="color:var(--kuning-pplg) >LAYANAN & BOOKING</a></li>
-
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="destinasi.html">Jelajah</a></li>
+            <li><a href="support.html" class="btn-nav">Bantuan</a></li>
         </ul>
     </nav>
 
-    <div class="full-wrapper">
-        <div class="sidebar-dock">
-            <button class="dock-btn active" onclick="openNav('emer', this)">
-                <div class="icon">🚨</div>
-                <span>Emergency</span>
-            </button>
-            <button class="dock-btn" onclick="openNav('faq', this)">
-                <div class="icon">🔍</div>
-                <span>FAQ</span>
-            </button>
-            <button class="dock-btn" onclick="openNav('book', this)">
-                <div class="icon">💳</div>
-                <span>Booking</span>
-            </button>
-            <button class="dock-btn" onclick="openNav('ai', this)">
-                <div class="icon">🤖</div>
-                <span>AI Bot</span>
-            </button>
+    <div class="main-container">
+        <div class="sidebar">
+            <button class="tab-btn active" onclick="openTab('info', this)">🚨 EMERGENCY</button>
+            <button class="tab-btn" onclick="openTab('faq', this)">🔍 FAQ</button>
+            <button class="tab-btn" onclick="openTab('book', this)">📝 BOOKING</button>
         </div>
 
-        <div class="content-frame">
-            
-            <div id="emer" class="panel active">
-                <h1 class="big-title">Emergency <span class="hl">Contact</span></h1>
-                <div class="e-grid">
-                    <div class="card-custom">
-                        <h3>🚑 Medis & RSUD</h3>
-                        <p>Layanan Gawat Darurat Besemah 24 Jam</p>
-                        <span class="telp">0730 - 621020</span>
-                    </div>
-                    <div class="card-custom">
-                        <h3>🚓 Kepolisian</h3>
-                        <p>Polres Pagar Alam Keamanan Wisata</p>
-                        <span class="telp">0730 - 621110</span>
-                    </div>
+        <div class="content">
+            <div id="info" class="panel active">
+                <h2 style="margin-bottom:20px;">Kontak Darurat</h2>
+                <div class="emergency-card">
+                    <h3>RSUD Besemah</h3>
+                    <p>Telepon: (0730) 621020</p>
+                </div>
+                <div class="emergency-card">
+                    <h3>Polres Pagar Alam</h3>
+                    <p>Telepon: (0730) 621110</p>
                 </div>
             </div>
 
             <div id="faq" class="panel">
-                <h1 class="big-title">Travel <span class="hl">FAQ</span></h1>
-                <div class="faq-box">
-                    <h4>✅ Apakah aman memesan online?</h4>
-                    <p>Sangat aman. Website ini terenkripsi dan pembayaran hanya ditujukan ke rekening resmi dinas pariwisata untuk menghindari penipuan.</p>
-                </div>
-                <div class="faq-box">
-                    <h4>🗺️ Bagaimana akses bagi turis luar kota?</h4>
-                    <p>Kami menyediakan jasa penjemputan di Bandara Atung Bungsu dan Stasiun Lahat untuk memudahkan perjalanan Anda.</p>
+                <h2 style="margin-bottom:20px;">Tanya Jawab</h2>
+                <div style="background:white; padding:20px; border-radius:15px;">
+                    <p><strong>Bagaimana cara pesan?</strong><br>Isi form di tab Booking dan tim kami akan menghubungi via WhatsApp.</p>
                 </div>
             </div>
 
             <div id="book" class="panel">
-                <h1 class="big-title">Secure <span class="hl">Booking</span></h1>
-                <p style="color:#666; margin-bottom:20px;">Lengkapi data di bawah ini untuk verifikasi legalitas dan asuransi wisata.</p>
-                
-                <form class="secure-booking">
-                    <div class="field">
-                        <label>Nama Lengkap / Full Name</label>
-                        <input type="text" placeholder="Sesuai KTP / Passport">
-                    </div>
-                    <div class="field">
-                        <label>Kewarganegaraan / Nationality</label>
-                        <select>
-                            <option>Indonesia (Domestik)</option>
-                            <option>Malaysia / Singapore</option>
-                            <option>Australia / Europe</option>
-                            <option>Lainnya / Others</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>NIK / Passport Number</label>
-                        <input type="text" placeholder="Identity Number">
-                    </div>
-                    <div class="field">
-                        <label>WhatsApp (Kode Negara)</label>
-                        <input type="text" placeholder="+62 812...">
-                    </div>
-                    <div class="field">
-                        <label>Titik Penjemputan / Pickup</label>
-                        <select>
-                            <option>Bandara Atung Bungsu (Pagar Alam)</option>
-                            <option>Stasiun Lahat</option>
-                            <option>Bandara Palembang (SMB II)</option>
-                            <option>Pool Travel Pagar Alam</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>Nomor Penerbangan / Flight (Jika ada)</label>
-                        <input type="text" placeholder="Contoh: GA-123">
-                    </div>
-                    <div class="field">
-                        <label>Jumlah Peserta</label>
-                        <input type="number" min="1" value="1">
-                    </div>
-                    <div class="field">
-                        <label>Bahasa Pemandu / Guide Language</label>
-                        <select>
-                            <option>Bahasa Indonesia</option>
-                            <option>English</option>
-                        </select>
-                    </div>
-                    <div class="field full">
-                        <label>Alergi / Catatan Medis (Medical Notes)</label>
-                        <textarea placeholder="Sebutkan alergi makanan atau kondisi medis jika ada..."></textarea>
-                    </div>
-                    <div class="field full">
-                        <label>Unggah Foto Identitas (Verify ID)</label>
-                        <input type="file">
-                    </div>
-                    <div class="price-badge">
-                        HARGA SUDAH TERMASUK ASURANSI JIWA & PEMANDU RESMI
-                    </div>
-                    <button type="button" class="btn-pay">Bayar & Konfirmasi Pemesanan</button>
+                <h2 style="margin-bottom:20px;">Form Pemesanan Resmi</h2>
+                <form class="booking-grid">
+                    <div class="input-group"><label>Nama Lengkap</label><input type="text" placeholder="Sesuai KTP/Paspor"></div>
+                    <div class="input-group"><label>WhatsApp</label><input type="text" placeholder="0812..."></div>
+                    <div class="input-group"><label>Kewarganegaraan</label><select><option>Indonesia</option><option>Asing (WNA)</option></select></div>
+                    <div class="input-group"><label>Titik Jemput</label><select><option>Bandara</option><option>Stasiun</option></select></div>
+                    <div class="input-group full"><label>Catatan Medis/Alergi</label><textarea rows="3"></textarea></div>
+                    <button type="button" class="btn-submit">PESAN SEKARANG</button>
                 </form>
-            </div>
-
-            <div id="ai" class="panel">
-                <h1 class="big-title">AI <span class="hl">Assistant</span></h1>
-                <div style="background:white; border-radius:25px; height:350px; display:flex; flex-direction:column; margin-top:20px; box-shadow:0 15px 30px rgba(0,0,0,0.1);">
-                    <div style="background:var(--biru-safe); color:white; padding:15px; border-radius:25px 25px 0 0;">🤖 Pagar Alam AI Support</div>
-                    <div style="flex:1; padding:20px; background:#f9f9f9; overflow-y:auto;">
-                        <p style="background:white; padding:10px; border-radius:10px; border:1px solid #eee; font-size: 0.9rem;">Halo Aneu! Saya siap membantu menjawab pertanyaan dalam berbagai bahasa.</p>
-                    </div>
-                    <div style="padding:15px; display:flex; gap:10px; border-top:1px solid #eee;">
-                        <input type="text" placeholder="Tanya sesuatu..." style="flex:1;">
-                        <button style="background:var(--biru-safe); color:white; border:none; padding:10px 15px; border-radius:10px;">Kirim</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Pagar Alam Tourism Official - Aneu Rianti X PPLG 1</p>
-    </footer>
-
     <script>
-        function openNav(id, btn) {
+        function openTab(id, btn) {
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.dock-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             btn.classList.add('active');
-            document.querySelector('.content-frame').scrollTop = 0;
         }
     </script>
 </body>
