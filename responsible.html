@@ -11,6 +11,7 @@
             --kuning: #FFD700;
             --putih: #ffffff;
             --gelap: #0a230b;
+            --abu-bg: #f4f7f4;
         }
 
         /* --- RESET & FULL SCREEN SETUP --- */
@@ -19,126 +20,87 @@
         body { 
             display: flex; 
             flex-direction: column; 
-            min-height: 100vh; 
+            height: 100vh; 
             background: var(--putih);
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        /* NAVBAR (FULL WIDTH) */
+        /* NAVBAR - Konsisten dengan halaman lain */
         nav {
-            background: var(--hijau-tua); padding: 1.5rem 5%; display: flex;
+            background: var(--hijau-tua); padding: 1rem 5%; display: flex;
             justify-content: space-between; align-items: center;
-            border-bottom: 5px solid var(--kuning); position: sticky; top: 0; z-index: 1000;
-            width: 100%;
+            border-bottom: 5px solid var(--kuning); flex-shrink: 0; z-index: 1000;
         }
-        nav .logo { color: white; font-weight: 900; font-size: 1.6rem; letter-spacing: 1px; }
+        nav .logo { color: white; font-weight: 900; font-size: 1.5rem; }
         nav .logo span { color: var(--kuning); }
-        nav ul { display: flex; list-style: none; }
-        nav ul li { margin-left: 25px; }
-        nav ul li a { color: white; text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        nav ul { display: flex; list-style: none; gap: 15px; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
 
-        /* LAYOUT UTAMA: FULL SCREEN NO SPACE */
-        .full-wrapper {
-            flex: 1;
-            display: flex;
-            width: 100%; /* Tanpa margin di pinggir */
-            height: calc(100vh - 80px); /* Menyesuaikan tinggi sisa layar */
-        }
+        /* LAYOUT UTAMA */
+        .full-wrapper { flex: 1; display: flex; overflow: hidden; width: 100%; }
 
-        /* SIDEBAR TABS (BESAR & TEGAS) */
+        /* SIDEBAR DOCK */
         .sidebar-dock {
-            flex: 0 0 160px;
-            background: var(--gelap);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
+            flex: 0 0 160px; background: var(--gelap);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;
             border-right: 2px solid rgba(255,255,255,0.1);
         }
 
         .dock-btn {
-            width: 110px;
-            height: 110px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            color: white;
+            width: 110px; height: 110px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px;
+            cursor: pointer; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; transition: 0.4s; color: white;
         }
 
-        .dock-btn .icon { font-size: 2.8rem; margin-bottom: 8px; transition: 0.3s; }
-        .dock-btn span { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .dock-btn .icon { font-size: 2.5rem; margin-bottom: 5px; }
+        .dock-btn span { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; }
 
         .dock-btn.active {
-            background: var(--kuning);
-            color: var(--hijau-tua);
-            transform: scale(1.15);
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-            border: none;
+            background: var(--kuning); color: var(--hijau-tua);
+            transform: scale(1.1); box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); border: none;
         }
-        .dock-btn.active .icon { transform: rotate(-10deg); }
 
-        /* CONTENT AREA (FULL PANEL) */
-        .content-frame {
-            flex: 1;
-            padding: 60px;
-            overflow-y: auto;
-            background: #fafafa;
-            position: relative;
-        }
+        /* CONTENT AREA */
+        .content-frame { flex: 1; padding: 50px; overflow-y: auto; background: var(--abu-bg); }
 
         .panel { display: none; }
-        .panel.active { display: block; animation: slideIn 0.8s ease-out; }
+        .panel.active { display: block; animation: fadeIn 0.8s ease-out; }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* TEXT DESIGN */
-        .title-large { font-size: 4rem; font-weight: 900; color: var(--hijau-tua); line-height: 1; margin-bottom: 10px; }
+        /* TYPOGRAPHY */
+        .title-large { font-size: 3.5rem; font-weight: 900; color: var(--hijau-tua); line-height: 1; margin-bottom: 10px; }
         .hl-strike { background: var(--kuning); padding: 0 15px; border-radius: 5px; }
-        .subtitle { font-size: 1.2rem; font-weight: 700; color: var(--hijau-muda); margin-bottom: 30px; text-transform: uppercase; }
-        .long-desc { font-size: 1.1rem; line-height: 2; color: #444; text-align: justify; margin-bottom: 40px; }
+        .subtitle { font-size: 1.1rem; font-weight: 700; color: var(--hijau-muda); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 2px; }
+        .long-desc { font-size: 1.05rem; line-height: 1.8; color: #444; text-align: justify; margin-bottom: 30px; }
 
-        /* IMAGE LAYOUT (MENARIK & TIDAK ANEH) */
-        .image-showcase {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 25px;
-            margin-top: 40px;
-            height: 450px;
-        }
+        /* STATS COUNTER */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+        .stat-card { background: white; padding: 20px; border-radius: 20px; text-align: center; border-bottom: 5px solid var(--hijau-muda); }
+        .stat-card h2 { color: var(--hijau-tua); font-size: 2rem; font-weight: 900; }
+        .stat-card p { font-size: 0.8rem; font-weight: 600; color: #777; }
 
-        .img-box { position: relative; border-radius: 35px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.7s; }
-        .img-box:hover img { transform: scale(1.1) rotate(2deg); }
-
-        .img-box.tall { grid-row: span 1; }
-        .img-box.short { height: 210px; }
+        /* IMAGE GRID */
+        .image-showcase { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; height: 500px; margin-top: 30px; }
+        .img-box { position: relative; border-radius: 30px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .img-box:hover img { transform: scale(1.05); }
 
         .img-label {
-            position: absolute; bottom: 25px; left: 25px;
-            background: rgba(255,255,255,0.95); padding: 10px 20px;
-            border-radius: 15px; font-weight: 800; font-size: 0.9rem; color: var(--hijau-tua);
+            position: absolute; top: 20px; right: 20px; background: var(--kuning);
+            padding: 8px 15px; border-radius: 10px; font-weight: 800; font-size: 0.7rem; color: var(--hijau-tua);
         }
 
         /* FOOTER */
-        footer { background: var(--gelap); color: white; text-align: center; padding: 30px; border-top: 5px solid var(--hijau-muda); }
+        footer { background: var(--gelap); color: white; text-align: center; padding: 25px; flex-shrink: 0; border-top: 4px solid var(--hijau-muda); }
 
         @media (max-width: 1024px) {
+            nav ul { display: none; }
             .full-wrapper { flex-direction: column; }
-            .sidebar-dock { flex: 0 0 100px; flex-direction: row; width: 100%; border-right: none; border-bottom: 3px solid var(--kuning); }
-            .dock-btn { width: 80px; height: 80px; }
-            .dock-btn .icon { font-size: 2rem; }
+            .sidebar-dock { flex-direction: row; width: 100%; height: 100px; flex: 0 0 100px; border-right: none; }
             .image-showcase { grid-template-columns: 1fr; height: auto; }
-            .title-large { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -147,7 +109,7 @@
     <nav>
         <div class="logo">PAGAR<span>ALAM</span></div>
         <ul>
-                      <li><a href="index.html">BERANDA</a></li>
+            <li><a href="index.html">BERANDA</a></li>
             <li><a href="destinasi.html">DESTINASI</a></li>
             <li><a href="aktivitas.html">GALERI</a></li>
             <li><a href="budaya.html">BUDAYA</a></li>
@@ -155,8 +117,8 @@
             <li><a href="trip.html">RENCANA</a></li>
             <li><a href="itinerary.html">PAKET TOUR</a></li>
             <li><a href="akomodasi.html">PENGINAPAN</a></li>
-            <li><a href="responsible.html"style="color:var(--kuning) ">EKOWISATA</a></li>
-            <li><a href="contact.html">LAYANAN & BOOKING</a></li>
+            <li><a href="responsible.html" style="color:var(--kuning)">EKOWISATA</a></li>
+            <li><a href="contact.html">LAYANAN</a></li>
         </ul>
     </nav>
 
@@ -181,23 +143,30 @@
             <div id="green" class="panel active">
                 <h1 class="title-large">Green <span class="hl-strike">Rules</span></h1>
                 <p class="subtitle">Etika Wisata & Kampanye Anti Plastik</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card"><h2>0%</h2><p>PLASTIK SEKALI PAKAI</p></div>
+                    <div class="stat-card"><h2>24/7</h2><p>PENGAWASAN HUTAN</p></div>
+                    <div class="stat-card"><h2>100%</h2><p>ALAM TERJAGA</p></div>
+                </div>
+
                 <p class="long-desc">
-                    Pagar Alam adalah permata hijau Sumatera yang harus kita jaga bersama. Kebijakan "Green Rules" bukan sekadar himbauan, melainkan protokol wajib bagi setiap petualang. Kami secara tegas melarang penggunaan botol plastik sekali pakai di seluruh kawasan air terjun dan pendakian Gunung Dempo. Plastik yang tertinggal akan meracuni tanah vulkanik yang subur dan membahayakan satwa endemik seperti Harimau Sumatera dan primata lokal. Dengan membawa wadah minum sendiri, Anda berkontribusi pada pengurangan 2 ton sampah plastik per tahun di pegunungan ini. Jadilah saksi keindahan tanpa meninggalkan noda sedikitpun.
+                    Pagar Alam bukan hanya destinasi, ia adalah warisan yang dititipkan kepada kita. Melalui kebijakan <b>Green Rules</b>, kami berkomitmen untuk menghapus jejak karbon dari pariwisata. Wisatawan diwajibkan menggunakan tumbler pribadi saat mendaki Gunung Dempo atau mengunjungi air terjun. Setiap sampah yang dibawa masuk harus dibawa keluar kembali dalam kondisi utuh. Kami percaya bahwa keindahan alam Besemah adalah milik generasi mendatang, dan tugas kita hari ini adalah menjadi benteng pelindungnya dari kerusakan lingkungan.
                 </p>
 
                 <div class="image-showcase">
-                    <div class="img-box tall">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000" alt="Nature">
-                        <div class="img-label">#CleanDempo Expedition</div>
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1000" alt="Landscape">
+                        <div class="img-label">PRESERVED NATURE</div>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 25px;">
-                        <div class="img-box short">
-                            <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?q=80&w=600" alt="Recycle">
-                            <div class="img-label">Eco-Education</div>
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="img-box" style="height: 240px;">
+                            <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=600" alt="Clean">
+                            <div class="img-label">CLEAN CAMPAIGN</div>
                         </div>
-                        <div class="img-box short">
-                            <img src="https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?q=80&w=600" alt="Animals">
-                            <div class="img-label">Wildlife Protection</div>
+                        <div class="img-box" style="height: 240px;">
+                            <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=600" alt="Mountain">
+                            <div class="img-label">DEMPO PROTECTION</div>
                         </div>
                     </div>
                 </div>
@@ -205,50 +174,52 @@
 
             <div id="local" class="panel">
                 <h1 class="title-large">Local <span class="hl-strike">Power</span></h1>
-                <p class="subtitle">Mendukung Ekonomi Kreatif Warga Besemah</p>
+                <p class="subtitle">Ekonomi Kreatif Warga Besemah</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card"><h2>50+</h2><p>PETANI KOPI LOKAL</p></div>
+                    <div class="stat-card"><h2>12</h2><p>DESA WISATA AKTIF</p></div>
+                    <div class="stat-card"><h2>100%</h2><p>UNTUK MASYARAKAT</p></div>
+                </div>
+
                 <p class="long-desc">
-                    Membeli produk lokal adalah bentuk nyata dari wisata berkelanjutan. Masyarakat Pagar Alam memiliki kekayaan kriya dan tani yang luar biasa, mulai dari Kopi Robusta dengan aroma tanah yang kuat hingga anyaman rotan yang rumit. Dengan berbelanja langsung di UMKM desa wisata, Anda memutus rantai distribusi panjang dan memastikan keuntungan mengalir langsung kepada para petani dan pengrajin. Ini adalah cara terbaik bagi wisatawan untuk menghargai keramah-tamahan penduduk Besemah sambil membawa pulang potongan sejarah dan budaya yang bisa diceritakan kepada dunia.
+                    Mendukung produk lokal adalah jantung dari ekonomi berkelanjutan. Pagar Alam memiliki <b>Kopi Robusta Besemah</b> yang telah mendunia. Dengan membeli langsung dari petani, Anda membantu meningkatkan kesejahteraan mereka. Selain kopi, kami juga mempromosikan kerajinan rotan dan bambu hasil karya ibu-ibu di desa wisata. Pariwisata yang baik adalah pariwisata yang memberikan dampak positif bagi saku dan hati warga lokal. Mari berbelanja dengan bijak dan mendukung karya asli anak bangsa.
                 </p>
 
                 <div class="image-showcase">
-                    <div class="img-box tall">
-                        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1000" alt="Coffee">
-                        <div class="img-label">Authentic Robusta Harvest</div>
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000" alt="Coffee">
+                        <div class="img-label">LOCAL COFFEE BEANS</div>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 25px;">
-                        <div class="img-box short">
-                            <img src="https://images.unsplash.com/photo-1590610945532-349f9977c030?q=80&w=600" alt="Craft">
-                            <div class="img-label">Handmade Crafts</div>
-                        </div>
-                        <div class="img-box short">
-                            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600" alt="Market">
-                            <div class="img-label">Local Market Experience</div>
-                        </div>
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1606041008023-472dfb5e530f?q=80&w=600" alt="Market">
+                        <div class="img-label">TRADITIONAL CRAFT</div>
                     </div>
                 </div>
             </div>
 
             <div id="eco" class="panel">
                 <h1 class="title-large">Eco <span class="hl-strike">Action</span></h1>
-                <p class="subtitle">Menjadi Relawan Untuk Bumi Besemah</p>
+                <p class="subtitle">Menjadi Relawan Untuk Bumi</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card"><h2>5000+</h2><p>POHON DITANAM</p></div>
+                    <div class="stat-card"><h2>300</h2><p>RELAWAN AKTIF</p></div>
+                    <div class="stat-card"><h2>10+</h2><p>TITIK KONSERVASI</p></div>
+                </div>
+
                 <p class="long-desc">
-                    Liburan Anda bisa menjadi lebih bermakna dengan bergabung dalam aksi volunteering kami. Program "Satu Pohon Satu Wisatawan" mengajak Anda menanam bibit pohon endemik di zona restorasi Gunung Dempo. Anda tidak hanya datang untuk menikmati pemandangan, tapi juga meninggalkan warisan kehidupan. Selain reboisasi, kami mengadakan aksi bersih-bersih jalur secara rutin bersama komunitas pecinta alam. Ini adalah kesempatan langka untuk berinteraksi dengan aktivis lingkungan setempat dan memahami tantangan nyata dalam menjaga kelestarian hutan hujan tropis Sumatera.
+                    Jangan hanya datang untuk mengambil foto, datanglah untuk memberikan kehidupan. Program <b>Eco Action</b> memungkinkan wisatawan untuk ikut serta dalam penanaman pohon endemik di kaki Gunung Dempo. Setiap pohon yang Anda tanam akan diberi label nama Anda sebagai kenang-kenangan abadi. Selain itu, kami rutin mengadakan agenda "Opsih" (Operasi Bersih) di sepanjang jalur pendakian. Bergabunglah bersama kami dan jadilah bagian dari solusi untuk menjaga paru-paru Sumatera tetap hijau dan asri.
                 </p>
 
                 <div class="image-showcase">
-                    <div class="img-box tall">
-                        <img src="https://images.unsplash.com/photo-1544650039-22886fbb4323?q=80&w=1000" alt="Volunteer">
-                        <div class="img-label">Reforestation Program</div>
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000" alt="Planting">
+                        <div class="img-label">REFORESTATION</div>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 25px;">
-                        <div class="img-box short">
-                            <img src="https://images.unsplash.com/photo-1530543787849-128d94430c6b?q=80&w=600" alt="Cleaning">
-                            <div class="img-label">Mountain Clean-Up</div>
-                        </div>
-                        <div class="img-box short">
-                            <img src="https://images.unsplash.com/photo-1550005814-23910049755b?q=80&w=600" alt="Planting">
-                            <div class="img-label">Youth Conservation</div>
-                        </div>
+                    <div class="img-box">
+                        <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=600" alt="Nature">
+                        <div class="img-label">VOLUNTEER ACTION</div>
                     </div>
                 </div>
             </div>
@@ -257,7 +228,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Pagar Alam Tourism - Aneu Rianti X PPLG 1</p>
+        <p>&copy; 2026 Pagar Alam Tourism Official - Aneu Rianti X PPLG 1</p>
     </footer>
 
     <script>
@@ -266,7 +237,6 @@
             document.querySelectorAll('.dock-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             btn.classList.add('active');
-            // Reset scroll to top when changing tab
             document.querySelector('.content-frame').scrollTop = 0;
         }
     </script>
